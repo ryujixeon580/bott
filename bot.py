@@ -140,4 +140,5 @@ async def aprovar(ctx, wid:int):
 
     await ctx.send("ID inválido")
 
-bot.run("")
+import os
+bot.run(os.getenv("DISCORD_TOKEN"))
