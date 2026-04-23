@@ -65,7 +65,7 @@ class InMemoryDatabase:
             "config": {
                 "cargo_adm_id": None, "cargo_cliente_id": None,
                 "canal_feedback_id": None, "pix_chave": "", "pix_nome": "LOJA", 
-                "pix_cidade": "BRASIL", "quantidade_por_categoria": {}, "cargo_atendimento_id": None, "admin_commission_percent": 5, "attendance_config": {"channel_id": None, "message_id": None}
+                "pix_cidade": "BRASIL", "quantidade_por_categoria": {}, "cargo_atendimento_id": None, "admin_commission_percent": 5, "attendance_config": {"channel_id": None, "message_id": None}, "admin_stats": {}, "withdraw_requests": [], "payment_logs": [], "finance": {"total_paid": 0.0}, "painel_config": {"financeiro_channel": None, "financeiro_message_id": None, "ranking_channel": None, "ranking_message_id": None}, "cargo_aprovador_saque": None
             },
             "products": [], 
             "orders": [], 
@@ -123,6 +123,12 @@ class InMemoryDatabase:
             cfg.setdefault("cargo_atendimento_id", None)
             cfg.setdefault("admin_commission_percent", 5)
             cfg.setdefault("attendance_config", {"channel_id": None, "message_id": None})
+            cfg.setdefault("admin_stats", {})
+            cfg.setdefault("withdraw_requests", [])
+            cfg.setdefault("payment_logs", [])
+            cfg.setdefault("finance", {"total_paid": 0.0})
+            cfg.setdefault("painel_config", {"financeiro_channel": None, "financeiro_message_id": None, "ranking_channel": None, "ranking_message_id": None})
+            cfg.setdefault("cargo_aprovador_saque", None)
             return copy.deepcopy(cfg)
 
     async def update_config(self, new_config):
@@ -491,6 +497,62 @@ async def update_attendance_panel(bot):
             pass
     msg = await channel.send(embed=embed, view=view)
     await db.update_config({"attendance_config": {"channel_id": channel_id, "message_id": msg.id}})
+
+
+async def build_finance_embed():
+    config = await db.get_config()
+    stats = config.get("admin_stats", {})
+    total_sales = sum(float(v.get("total_value", 0.0)) for v in stats.values())
+    total_balance = sum(float(v.get("balance", 0.0)) for v in stats.values())
+    total_paid = float(config.get("finance", {}).get("total_paid", 0.0))
+    embed = discord.Embed(title="📊 Painel Financeiro", color=discord.Color.green())
+    embed.add_field(name="💰 Total em vendas", value=f"R$ {total_sales:.2f}", inline=True)
+    embed.add_field(name="💸 Comissão pendente", value=f"R$ {total_balance:.2f}", inline=True)
+    embed.add_field(name="🏦 Total pago", value=f"R$ {total_paid:.2f}", inline=True)
+    embed.timestamp = datetime.now(timezone.utc)
+    return embed
+
+async def build_ranking_embed():
+    config = await db.get_config()
+    stats = config.get("admin_stats", {})
+    ranking = sorted(stats.items(), key=lambda kv: (float(kv[1].get("total_value", 0.0)), int(kv[1].get("completed", 0))), reverse=True)
+    lines = []
+    for i, (admin_id, data) in enumerate(ranking[:10], 1):
+        lines.append(f"{i}. <@{admin_id}>\n📦 {int(data.get('completed', 0))} pedidos | 💰 R$ {float(data.get('total_value', 0.0)):.2f} | 💸 R$ {float(data.get('balance', 0.0)):.2f}")
+    embed = discord.Embed(title="🏆 Ranking de Atendimento", description="\n\n".join(lines) if lines else "Sem dados ainda.", color=discord.Color.gold())
+    embed.timestamp = datetime.now(timezone.utc)
+    return embed
+
+async def update_status_panels(bot):
+    config = await db.get_config()
+    painel = config.get("painel_config", {})
+
+    async def _up(channel_id, message_id, embed):
+        if not channel_id:
+            return message_id
+        channel = bot.get_channel(channel_id)
+        if not channel:
+            try:
+                channel = await bot.fetch_channel(channel_id)
+            except Exception:
+                return message_id
+        if message_id:
+            try:
+                msg = await channel.fetch_message(message_id)
+                await msg.edit(embed=embed)
+                return msg.id
+            except Exception:
+                pass
+        msg = await channel.send(embed=embed)
+        return msg.id
+
+    financeiro_embed = await build_finance_embed()
+    ranking_embed = await build_ranking_embed()
+
+    painel["financeiro_message_id"] = await _up(painel.get("financeiro_channel"), painel.get("financeiro_message_id"), financeiro_embed)
+    painel["ranking_message_id"] = await _up(painel.get("ranking_channel"), painel.get("ranking_message_id"), ranking_embed)
+    await db.update_config({"painel_config": painel})
+
 # --- MODAIS ---
 
 class GenericFieldModal(discord.ui.Modal):
@@ -998,6 +1060,53 @@ class SetAttendanceChannelModal(discord.ui.Modal, title="Canal do Bate-Ponto"):
         except Exception:
             await interaction.response.send_message("❌ ID inválido.", ephemeral=True)
 
+
+
+class SetCommissionModal(discord.ui.Modal, title="Comissão ADM"):
+    def __init__(self, bot_instance):
+        super().__init__()
+        self.bot = bot_instance
+        self.add_item(discord.ui.TextInput(label="Percentual da comissão", placeholder="Ex: 5", required=True))
+    async def on_submit(self, interaction: discord.Interaction):
+        try:
+            value = float(self.children[0].value.strip().replace(",", "."))
+            await db.update_config({"admin_commission_percent": value})
+            await interaction.response.send_message(f"✅ Comissão definida em {value:.2f}%.", ephemeral=True)
+            await update_status_panels(self.bot)
+        except Exception:
+            await interaction.response.send_message("❌ Valor inválido.", ephemeral=True)
+
+class SetApproverRoleModal(discord.ui.Modal, title="Cargo aprova saque"):
+    def __init__(self, bot_instance):
+        super().__init__()
+        self.bot = bot_instance
+        self.add_item(discord.ui.TextInput(label="ID do cargo aprovador", required=True))
+    async def on_submit(self, interaction: discord.Interaction):
+        try:
+            role_id = int(self.children[0].value.strip())
+            await db.update_config({"cargo_aprovador_saque": role_id})
+            await interaction.response.send_message("✅ Cargo aprovador configurado.", ephemeral=True)
+        except Exception:
+            await interaction.response.send_message("❌ ID inválido.", ephemeral=True)
+
+class SetStatusPanelsModal(discord.ui.Modal, title="Painéis de Status"):
+    def __init__(self, bot_instance):
+        super().__init__()
+        self.bot = bot_instance
+        self.add_item(discord.ui.TextInput(label="ID canal financeiro", required=False))
+        self.add_item(discord.ui.TextInput(label="ID canal ranking", required=False))
+    async def on_submit(self, interaction: discord.Interaction):
+        try:
+            config = await db.get_config()
+            painel = config.get("painel_config", {})
+            painel["financeiro_channel"] = int(self.children[0].value.strip()) if self.children[0].value.strip() else None
+            painel["ranking_channel"] = int(self.children[1].value.strip()) if self.children[1].value.strip() else None
+            await db.update_config({"painel_config": painel})
+            await interaction.response.send_message("✅ Painéis configurados.", ephemeral=True)
+            await update_status_panels(self.bot)
+        except Exception:
+            await interaction.response.send_message("❌ IDs inválidos.", ephemeral=True)
+
 class ConfigSelectionView(discord.ui.View):
     def __init__(self, bot):
         super().__init__()
@@ -1023,6 +1132,26 @@ class ConfigSelectionView(discord.ui.View):
         if not await check_admin_permission(interaction, self.bot):
             return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
         await interaction.response.send_modal(SetAttendanceChannelModal(self.bot))
+
+
+
+    @discord.ui.button(label="💸 Comissão ADM", style=discord.ButtonStyle.secondary, row=1)
+    async def commission_config(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if not await check_admin_permission(interaction, self.bot):
+            return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+        await interaction.response.send_modal(SetCommissionModal(self.bot))
+
+    @discord.ui.button(label="🛡️ Cargo aprova saque", style=discord.ButtonStyle.secondary, row=1)
+    async def approver_role_config(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if not await check_admin_permission(interaction, self.bot):
+            return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+        await interaction.response.send_modal(SetApproverRoleModal(self.bot))
+
+    @discord.ui.button(label="📊 Painéis de Status", style=discord.ButtonStyle.secondary, row=1)
+    async def status_panels_config(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if not await check_admin_permission(interaction, self.bot):
+            return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+        await interaction.response.send_modal(SetStatusPanelsModal(self.bot))
 
 # --- CATALOG WIZARD ---
 class MultiCategoryCatalogView(discord.ui.View):
@@ -1315,7 +1444,19 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
                 embed=create_error_embed("Esgotado", f"Estoque insuficiente para {mult}x."),
                 ephemeral=True
             )
-        reserved_items = [deliverables.pop(0) for _ in range(mult)]
+        reserved_items = []
+        for _ in range(mult):
+            if deliverables:
+                reserved_items.append(deliverables.pop(0))
+        if len(reserved_items) < mult:
+            if reserved_items:
+                deliverables = reserved_items + deliverables
+            await db.update_product(base_product['id'], {'deliverables': deliverables})
+            await update_catalog_display(bot)
+            return await interaction.followup.send(
+                embed=create_error_embed("Esgotado", f"Estoque insuficiente para {mult}x."),
+                ephemeral=True
+            )
         reserved_item = "\n".join(reserved_items)
         await db.update_product(base_product['id'], {'deliverables': deliverables})
         await update_catalog_display(bot)
@@ -1414,6 +1555,10 @@ async def confirm_order_logic(order_id: int, bot):
             await db.force_save()
             try:
                 await update_attendance_panel(bot)
+            except Exception:
+                pass
+            try:
+                await update_status_panels(bot)
             except Exception:
                 pass
         
@@ -1695,7 +1840,87 @@ if __name__ == "__main__":
                 return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
             await interaction.response.defer(ephemeral=True)
             await update_attendance_panel(bot)
-            await interaction.followup.send("✅ Painel de bate-ponto publicado/atualizado.", ephemeral=True)
+            await update_status_panels(bot)
+            await interaction.followup.send("✅ Painéis publicados/atualizados.", ephemeral=True)
+
+
+        @bot.tree.command(name="saldoadm", description="Mostra seu saldo de comissão.")
+        async def saldoadm(interaction: discord.Interaction):
+            if not await check_staff_permission(interaction, bot):
+                return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+            config = await db.get_config()
+            stats = config.get("admin_stats", {})
+            row = stats.get(str(interaction.user.id), {})
+            await interaction.response.send_message(f"💸 Seu saldo atual: R$ {float(row.get('balance', 0.0)):.2f}", ephemeral=True)
+
+        @bot.tree.command(name="solicitarsaque", description="Solicita saque do seu saldo.")
+        @app_commands.describe(valor="Valor do saque em reais")
+        async def solicitarsaque(interaction: discord.Interaction, valor: float):
+            if not await check_staff_permission(interaction, bot):
+                return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+            config = await db.get_config()
+            stats = config.get("admin_stats", {})
+            row = stats.get(str(interaction.user.id), {})
+            saldo = float(row.get("balance", 0.0))
+            if valor <= 0 or valor > saldo:
+                return await interaction.response.send_message("❌ Valor inválido ou saldo insuficiente.", ephemeral=True)
+            async with db._lock:
+                cfg = db._db_cache.setdefault("config", {})
+                reqs = cfg.setdefault("withdraw_requests", [])
+                reqs.append({"id": len(reqs)+1, "user_id": interaction.user.id, "valor": float(valor), "status": "pending", "created_at": datetime.now(timezone.utc).isoformat()})
+                db._dirty = True
+            await db.force_save()
+            await interaction.response.send_message("✅ Solicitação de saque criada.", ephemeral=True)
+
+        @bot.tree.command(name="aprovarsaque", description="Aprova um saque pendente pelo ID.")
+        @app_commands.describe(id="ID da solicitação")
+        async def aprovarsaque(interaction: discord.Interaction, id: int):
+            config = await db.get_config()
+            aprovador = config.get("cargo_aprovador_saque")
+            role_ids = {r.id for r in interaction.user.roles}
+            if not (interaction.user.guild_permissions.administrator or (aprovador and aprovador in role_ids) or await check_admin_permission(interaction, bot)):
+                return await interaction.response.send_message("❌ Sem permissão.", ephemeral=True)
+            async with db._lock:
+                cfg = db._db_cache.setdefault("config", {})
+                reqs = cfg.setdefault("withdraw_requests", [])
+                stats = cfg.setdefault("admin_stats", {})
+                target = None
+                for req in reqs:
+                    if int(req.get("id", 0)) == id and req.get("status") == "pending":
+                        target = req
+                        break
+                if not target:
+                    return await interaction.response.send_message("❌ Solicitação não encontrada.", ephemeral=True)
+                row = stats.setdefault(str(target["user_id"]), {"total_orders": 0, "total_value": 0.0, "completed": 0, "cancelled": 0, "total_time": 0.0, "balance": 0.0})
+                valor_pago = float(target.get("valor", 0.0))
+                vendas_resetadas = float(row.get("total_value", 0.0))
+                row["balance"] = 0.0
+                row["total_value"] = 0.0
+                target["status"] = "paid"
+                cfg.setdefault("payment_logs", []).append({"user_id": target["user_id"], "valor": valor_pago, "vendas_resetadas": vendas_resetadas, "data": datetime.now(timezone.utc).isoformat(), "aprovado_por": interaction.user.id})
+                finance = cfg.setdefault("finance", {"total_paid": 0.0})
+                finance["total_paid"] = float(finance.get("total_paid", 0.0)) + valor_pago
+                db._dirty = True
+            await db.force_save()
+            await interaction.response.send_message("✅ Saque aprovado e saldo zerado.", ephemeral=True)
+            await update_status_panels(bot)
+
+        @bot.tree.command(name="rankingadms", description="Ranking de atendimento por vendas.")
+        async def rankingadms(interaction: discord.Interaction):
+            if not await check_admin_permission(interaction, bot):
+                return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+            embed = await build_ranking_embed()
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+
+        @bot.tree.command(name="atualizarpaineis", description="Atualiza financeiro, ranking e bate-ponto.")
+        async def atualizarpaineis(interaction: discord.Interaction):
+            if not await check_admin_permission(interaction, bot):
+                return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+            await interaction.response.defer(ephemeral=True)
+            await update_status_panels(bot)
+            await update_attendance_panel(bot)
+            await interaction.followup.send("✅ Painéis atualizados.", ephemeral=True)
+
         bot.run(bot_config['discord_token'])
     except Exception as e:
         logger.critical(f"Erro fatal: {e}\n{traceback.format_exc()}")
