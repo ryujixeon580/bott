@@ -16,6 +16,7 @@ from functools import partial
 import copy
 import sys
 import re
+import math
 
 # --- CONFIGURAÇÃO INICIAL E CONSTANTES ---
 
@@ -1183,16 +1184,22 @@ class MultiCategoryCatalogView(discord.ui.View):
                 self.add_item(select)
                 count += 1
     async def select_callback(self, interaction: discord.Interaction):
-        await interaction.response.defer()
-        all_prods = await db.get_products(exclude_status=[StockStatus.ARCHIVED.value])
-        new_view = MultiCategoryCatalogView(all_prods, self.bot, self.categories)
-        await interaction.edit_original_response(view=new_view)
         selected_value = interaction.data['values'][0]
         try:
             product_data = await db.get_product_by_id(selected_value)
-            if not product_data: 
-                await interaction.followup.send(embed=create_error_embed("Erro", "Produto não encontrado."), ephemeral=True)
-                return
+            if not product_data:
+                return await interaction.response.send_message(embed=create_error_embed("Erro", "Produto não encontrado."), ephemeral=True)
+
+            # Robux precisa abrir Modal como resposta inicial da interação.
+            # Por isso ele vem antes do defer/edit do catálogo.
+            if is_robux_product(product_data):
+                return await interaction.response.send_modal(RobuxQuantityModal(self.bot, product_data))
+
+            await interaction.response.defer()
+            all_prods = await db.get_products(exclude_status=[StockStatus.ARCHIVED.value])
+            new_view = MultiCategoryCatalogView(all_prods, self.bot, self.categories)
+            await interaction.edit_original_response(view=new_view)
+
             if await product_allows_quantity(product_data):
                 view = QuantitySelectView(self.bot, product_data)
                 await interaction.followup.send(
@@ -1204,7 +1211,13 @@ class MultiCategoryCatalogView(discord.ui.View):
                 await handle_purchase(interaction, product_data, self.bot)
         except Exception as e:
             logger.error(f"Erro callback catalogo: {e}")
-            await interaction.followup.send(embed=create_error_embed("Erro", "Falha ao processar."), ephemeral=True)
+            try:
+                if interaction.response.is_done():
+                    await interaction.followup.send(embed=create_error_embed("Erro", f"Falha ao processar: {e}"), ephemeral=True)
+                else:
+                    await interaction.response.send_message(embed=create_error_embed("Erro", f"Falha ao processar: {e}"), ephemeral=True)
+            except Exception:
+                pass
 
 class CatalogDetailsModal(discord.ui.Modal, title="Detalhes do Catálogo"):
     def __init__(self, bot_instance, selected_categories):
@@ -1285,6 +1298,30 @@ async def product_allows_quantity(product: dict) -> bool:
     category_flags = config.get("quantidade_por_categoria", {})
     return bool(category_flags.get(product.get("categoria", "Geral"), False))
 
+
+def is_robux_product(product: dict) -> bool:
+    categoria = str(product.get("categoria", "")).lower()
+    nome = str(product.get("nome", "")).lower()
+    return "robux" in categoria or "robux" in nome
+
+
+def calc_gamepass_robux(robux_liquido: int) -> int:
+    # Roblox fica com 30%; o vendedor recebe aproximadamente 70%.
+    return math.ceil(robux_liquido / 0.70)
+
+
+def calc_robux_price_brl(robux_liquido: int) -> float:
+    # Tabela combinada na loja. Para valores fora da tabela, usa proporção do pacote de 1.000.
+    tabela = {
+        100: 4.49,
+        500: 23.49,
+        1000: 46.49,
+        5000: 231.99,
+    }
+    if robux_liquido in tabela:
+        return tabela[robux_liquido]
+    preco_por_robux = tabela[1000] / 1000
+    return round(robux_liquido * preco_por_robux, 2)
 
 
 def get_progressive_discount(mult: int) -> int:
@@ -1415,6 +1452,77 @@ class QuantitySelectView(discord.ui.View):
             view=preview_view
         )
 
+class ConfirmRobuxView(discord.ui.View):
+    def __init__(self, bot, product):
+        super().__init__(timeout=60)
+        self.bot = bot
+        self.product = product
+
+    @discord.ui.button(label="Confirmar compra", style=discord.ButtonStyle.success, emoji="✅")
+    async def confirm_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await handle_purchase(interaction, self.product, self.bot)
+
+    @discord.ui.button(label="Cancelar", style=discord.ButtonStyle.danger, emoji="✖️")
+    async def cancel_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(content="❌ Compra cancelada.", embed=None, view=None)
+
+
+class RobuxQuantityModal(discord.ui.Modal, title="Comprar Robux"):
+    def __init__(self, bot, product):
+        super().__init__()
+        self.bot = bot
+        self.product = product
+        self.add_item(discord.ui.TextInput(
+            label="Quantos Robux você quer receber?",
+            placeholder="Ex: 1000",
+            required=True,
+            max_length=6
+        ))
+
+    async def on_submit(self, interaction: discord.Interaction):
+        raw = self.children[0].value.strip().replace(".", "").replace(",", "")
+        if not raw.isdigit():
+            return await interaction.response.send_message("❌ Digite apenas números.", ephemeral=True)
+
+        robux_liquido = int(raw)
+        if robux_liquido < 100:
+            return await interaction.response.send_message("❌ O mínimo é 100 Robux.", ephemeral=True)
+        if robux_liquido > 10000:
+            return await interaction.response.send_message("❌ O máximo é 10.000 Robux.", ephemeral=True)
+
+        robux_gamepass = calc_gamepass_robux(robux_liquido)
+        preco = calc_robux_price_brl(robux_liquido)
+
+        desc_extra = (
+            f"🪙 **Robux líquidos:** {robux_liquido:,}\n"
+            f"🎟️ **Game Pass:** {robux_gamepass:,} Robux\n"
+            f"📉 **Taxa Roblox:** 30%"
+        ).replace(",", ".")
+
+        embed = discord.Embed(title="🪙 Confirmar compra de Robux", color=discord.Color.gold())
+        embed.add_field(name="Você vai receber", value=f"**{robux_liquido:,} Robux**".replace(",", "."), inline=False)
+        embed.add_field(name="Game Pass precisa ter", value=f"**{robux_gamepass:,} Robux**".replace(",", "."), inline=False)
+        embed.add_field(name="Preço", value=f"**R$ {preco:.2f}**", inline=False)
+        embed.set_footer(text="A taxa de 30% do Roblox já foi considerada.")
+
+        product_copy = self.product.copy()
+        product_copy["valor"] = preco
+        product_copy["robux_custom"] = True
+        product_copy["robux_liquido"] = robux_liquido
+        product_copy["robux_gamepass"] = robux_gamepass
+        product_copy["multiplicador"] = 1
+        product_copy["nome"] = f"Robux - Receber {robux_liquido:,}".replace(",", ".")
+        base_desc = self.product.get("descricao", "")
+        product_copy["descricao"] = f"{base_desc}\n\n{desc_extra}" if base_desc else desc_extra
+        product_copy["entregavel_custom"] = (
+            f"🪙 Robux líquidos: {robux_liquido:,}\n"
+            f"🎟️ Cliente deve criar Game Pass de: {robux_gamepass:,} Robux\n"
+            f"📉 Taxa Roblox considerada: 30%"
+        ).replace(",", ".")
+
+        await interaction.response.send_message(embed=embed, view=ConfirmRobuxView(self.bot, product_copy), ephemeral=True)
+
+
 # --- BUSINESS LOGIC ---
 
 async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
@@ -1436,7 +1544,12 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
     if not base_product:
         return await interaction.followup.send(embed=create_error_embed("Erro", "Produto não encontrado."), ephemeral=True)
 
-    if not base_product.get('infinito'):
+    if product.get("robux_custom"):
+        reserved_item = product.get("entregavel_custom") or (
+            f"🪙 Robux líquidos: {product.get('robux_liquido')}\n"
+            f"🎟️ Game Pass: {product.get('robux_gamepass')} Robux"
+        )
+    elif not base_product.get('infinito'):
         deliverables = base_product.get('deliverables', [])
         if len(deliverables) < mult:
             await update_catalog_display(bot)
@@ -1492,26 +1605,8 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
             "multiplicador": mult
         }
         new_order = await db.add_order(order_data)
-
-        thread = None
-        try:
-            thread = await interaction.channel.create_thread(
-                name=f"Pedido #{new_order['id']} - {interaction.user.name}",
-                type=discord.ChannelType.private_thread
-            )
-            try:
-                await thread.add_user(interaction.user)
-            except Exception:
-                pass
-        except Exception as thread_error:
-            logger.warning(f"Falha ao criar thread privada, tentando pública: {thread_error}")
-            starter_message = await interaction.channel.send(
-                f"🛒 Criando pedido de {interaction.user.mention}..."
-            )
-            thread = await starter_message.create_thread(
-                name=f"Pedido #{new_order['id']} - {interaction.user.name}"
-            )
-
+        thread = await interaction.channel.create_thread(name=f"Pedido #{new_order['id']} - {interaction.user.name}", type=discord.ChannelType.private_thread)
+        await thread.add_user(interaction.user)
         await db.update_order(new_order['id'], {"thread_id": thread.id})
         pix_key = generate_pix_key_dynamic(new_order['valor'], interaction.user.name, str(new_order['id']), config)
         image_url = base_product.get('imagem_url')
@@ -1523,11 +1618,7 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
             await interaction.user.send(content=f"Pedido #{new_order['id']} criado! Clique abaixo.", view=jump_view)
         except discord.Forbidden:
             pass
-        await interaction.followup.send(
-            embed=create_success_embed("Sucesso", "Canal de pagamento criado."),
-            view=jump_view,
-            ephemeral=True
-        )
+        await interaction.followup.send(embed=create_success_embed("Sucesso", "Canal de pagamento criado."), view=jump_view, ephemeral=True)
     except Exception as e:
         logger.error(f"Erro processar compra: {e}")
         if not base_product.get('infinito') and reserved_item:
@@ -1537,13 +1628,8 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
                 p['deliverables'] = rollback_items + p.get('deliverables', [])
                 await db.update_product(p['id'], {'deliverables': p['deliverables']})
             await update_catalog_display(bot)
-        try:
-            await interaction.followup.send(
-                embed=create_error_embed("Erro", f"Ocorreu um erro ao criar o pedido: {e}"),
-                ephemeral=True
-            )
-        except Exception:
-            pass
+        if not interaction.response.is_done():
+            await interaction.followup.send(embed=create_error_embed("Erro", "Ocorreu um erro."), ephemeral=True)
 
 async def confirm_order_logic(order_id: int, bot):
     try:
