@@ -1,0 +1,16 @@
+{
+    "config": {
+        "admin_commission_percent": 1,
+        "admin_stats": {},
+        "withdraw_requests": [],
+        "payment_logs": [],
+        "finance": {
+            "total_paid": 0
+        },
+        "dashboard": {
+            "finance_channel": null,
+            "finance_message_id": null
+        },
+        "cargo_aprovador_saque": null
+    }
+}
