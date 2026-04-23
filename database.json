@@ -7,11 +7,11 @@
         "pix_nome": "RyU Store",
         "pix_cidade": "BRASIL",
         "quantidade_por_categoria": {
-            "【🔷】｜sailor-itens": true,
-            "【🔷】｜Reliquias": true,
-            "【🗂️】｜sailor-pacotes": true,
-            "【🥋】｜sailor-sets": true,
-            "【🎮】｜sailor-gamepass": true,
+            "【🔷】｜sailor-itens": false,
+            "【🔷】｜Reliquias": false,
+            "【🗂️】｜sailor-pacotes": false,
+            "【🥋】｜sailor-sets": false,
+            "【🎮】｜sailor-gamepass": false,
             "【🪙】｜robux": false
         },
         "admin_stats": {},
