@@ -4,7 +4,7 @@
         "cargo_cliente_id": 1491173474817937528,
         "canal_feedback_id": 1492007998569185331,
         "pix_chave": "ryubux019@gmail.com",
-        "pix_nome": "RyU Store",
+        "pix_nome": "talita",
         "pix_cidade": "BRASIL",
         "quantidade_por_categoria": {
             "【🔷】｜sailor-itens": true,
@@ -29,7 +29,19 @@
             "logs_message_id": null
         },
         "cargo_aprovador_saque": null,
-        "coupons": {}
+        "coupons": {},
+        "cargo_atendimento_id": null,
+        "admin_commission_percent": 5,
+        "attendance_config": {
+            "channel_id": null,
+            "message_id": null
+        },
+        "painel_config": {
+            "financeiro_channel": null,
+            "financeiro_message_id": null,
+            "ranking_channel": null,
+            "ranking_message_id": null
+        }
     },
     "products": [
         {
