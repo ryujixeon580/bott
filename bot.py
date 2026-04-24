@@ -16,6 +16,8 @@ from functools import partial
 import copy
 import sys
 import re
+import aiohttp
+import base64
 import math
 
 # --- CONFIGURAÇÃO INICIAL E CONSTANTES ---
@@ -57,6 +59,87 @@ if not logger.handlers:
 
 # --- GERENCIADOR DE BANCO DE DADOS EM MEMÓRIA (SINGLE TENANT) ---
 DATA_FILE = "data_single.json"
+
+# --- BACKUP AUTOMÁTICO PARA GITHUB ---
+# Configure estas variáveis no Railway:
+# GITHUB_TOKEN, GITHUB_USER, GITHUB_REPO, GITHUB_FILE_PATH, GITHUB_BRANCH
+
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_USER = os.getenv("GITHUB_USER")
+GITHUB_REPO = os.getenv("GITHUB_REPO")
+GITHUB_FILE_PATH = os.getenv("GITHUB_FILE_PATH", DATA_FILE)
+GITHUB_BRANCH = os.getenv("GITHUB_BRANCH", "main")
+
+async def backup_to_github(reason: str = "auto backup bot"):
+    if not all([GITHUB_TOKEN, GITHUB_USER, GITHUB_REPO]):
+        logger.warning("Backup GitHub ignorado: variáveis não configuradas.")
+        return False
+
+    if not os.path.exists(DATA_FILE):
+        logger.warning(f"Backup GitHub ignorado: {DATA_FILE} não encontrado.")
+        return False
+
+    try:
+        with open(DATA_FILE, "rb") as f:
+            raw_content = f.read()
+
+        encoded_content = base64.b64encode(raw_content).decode("utf-8")
+
+        api_url = (
+            f"https://api.github.com/repos/{GITHUB_USER}/{GITHUB_REPO}"
+            f"/contents/{GITHUB_FILE_PATH}"
+        )
+
+        headers = {
+            "Authorization": f"Bearer {GITHUB_TOKEN}",
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+        }
+
+        async with aiohttp.ClientSession() as session:
+            sha = None
+
+            async with session.get(api_url, headers=headers, params={"ref": GITHUB_BRANCH}) as resp:
+                if resp.status == 200:
+                    current = await resp.json()
+                    sha = current.get("sha")
+                elif resp.status == 404:
+                    sha = None
+                else:
+                    txt = await resp.text()
+                    logger.error(f"Erro ao buscar arquivo no GitHub: {resp.status} - {txt}")
+                    return False
+
+            payload = {
+                "message": reason,
+                "content": encoded_content,
+                "branch": GITHUB_BRANCH,
+            }
+
+            if sha:
+                payload["sha"] = sha
+
+            async with session.put(api_url, headers=headers, json=payload) as resp:
+                txt = await resp.text()
+                if resp.status in (200, 201):
+                    logger.info("✅ Backup enviado para o GitHub.")
+                    return True
+
+                logger.error(f"❌ Erro ao enviar backup para GitHub: {resp.status} - {txt}")
+                return False
+
+    except Exception as e:
+        logger.error(f"❌ Falha no backup GitHub: {e}")
+        return False
+
+async def backup_to_github_safe(reason: str = "auto backup bot"):
+    try:
+        return await backup_to_github(reason)
+    except Exception as e:
+        logger.error(f"Backup GitHub falhou sem interromper o bot: {e}")
+        return False
+
+
 
 class InMemoryDatabase:
     def __init__(self, filename):
@@ -116,6 +199,7 @@ class InMemoryDatabase:
     async def force_save(self):
         self._dirty = True 
         await self.save_to_disk()
+        await backup_to_github_safe("backup: data_single.json atualizado")
     
     # --- Config ---
     async def get_config(self):
@@ -1452,21 +1536,69 @@ class QuantitySelectView(discord.ui.View):
             view=preview_view
         )
 
-def is_valid_gamepass_url(url: str) -> bool:
+def extract_gamepass_id(url: str):
+    """Extrai o ID da GamePass de links comuns do Roblox."""
     url = (url or "").strip()
     if not url:
-        return False
-    lowered = url.lower()
-    if "roblox.com" not in lowered:
-        return False
-    allowed_parts = [
-        "/game-pass/",
-        "/gamepasses/",
-        "game-pass",
-        "gamepass",
-        "passes"
+        return None
+
+    patterns = [
+        r"/game-pass/(\d+)",
+        r"/gamepasses/(\d+)",
+        r"[?&]gamepassId=(\d+)",
+        r"[?&]id=(\d+)",
+        r"/passes/(\d+)",
     ]
-    return any(part in lowered for part in allowed_parts)
+
+    for pattern in patterns:
+        match = re.search(pattern, url, re.IGNORECASE)
+        if match:
+            return int(match.group(1))
+
+    match = re.search(r"(\d{5,})", url)
+    if match:
+        return int(match.group(1))
+
+    return None
+
+
+def is_valid_gamepass_url(url: str) -> bool:
+    url = (url or "").strip()
+    lowered = url.lower()
+    return "roblox.com" in lowered and extract_gamepass_id(url) is not None
+
+
+async def fetch_gamepass_price_robux(gamepass_id: int):
+    """Consulta o preço atual da GamePass no Roblox."""
+    urls = [
+        f"https://apis.roblox.com/game-passes/v1/game-passes/{gamepass_id}/product-info",
+        f"https://apis.roblox.com/game-passes/v1/game-passes/{gamepass_id}/details",
+    ]
+
+    timeout = aiohttp.ClientTimeout(total=12)
+
+    async with aiohttp.ClientSession(timeout=timeout) as session:
+        last_error = None
+
+        for url in urls:
+            try:
+                async with session.get(url) as resp:
+                    if resp.status != 200:
+                        last_error = f"Roblox retornou status {resp.status}"
+                        continue
+
+                    data = await resp.json(content_type=None)
+
+                    for key in ["priceInRobux", "PriceInRobux", "price", "Price"]:
+                        if key in data and data[key] is not None:
+                            return True, int(data[key]), None
+
+                    last_error = "Preço não encontrado na resposta do Roblox"
+
+            except Exception as e:
+                last_error = str(e)
+
+    return False, None, last_error or "Não foi possível consultar a GamePass"
 
 
 class GamePassLinkModal(discord.ui.Modal, title="Enviar GamePass"):
@@ -1483,6 +1615,7 @@ class GamePassLinkModal(discord.ui.Modal, title="Enviar GamePass"):
 
     async def on_submit(self, interaction: discord.Interaction):
         gamepass_link = self.children[0].value.strip()
+        gamepass_id = extract_gamepass_id(gamepass_link)
 
         if not is_valid_gamepass_url(gamepass_link):
             return await interaction.response.send_message(
@@ -1491,23 +1624,66 @@ class GamePassLinkModal(discord.ui.Modal, title="Enviar GamePass"):
             )
 
         robux_liquido = self.product.get("robux_liquido")
-        robux_gamepass = self.product.get("robux_gamepass")
+        robux_gamepass = int(self.product.get("robux_gamepass") or 0)
+
+        await interaction.response.defer(ephemeral=True, thinking=True)
+
+        ok, price_robux, error_msg = await fetch_gamepass_price_robux(gamepass_id)
+
+        if not ok:
+            return await interaction.followup.send(
+                "❌ Não consegui verificar o preço dessa GamePass no Roblox.\n"
+                "Confira se o link está correto, se a GamePass está pública e tente novamente.\n"
+                f"Detalhe técnico: `{error_msg}`",
+                ephemeral=True
+            )
+
+        if int(price_robux) != int(robux_gamepass):
+            msg = (
+                "❌ O valor da sua GamePass está incorreto.\n\n"
+                f"🪙 Você quer receber: **{robux_liquido:,} Robux**\n"
+                f"🎟️ A GamePass precisa estar por: **{robux_gamepass:,} Robux**\n"
+                f"📌 Sua GamePass está por: **{price_robux:,} Robux**\n\n"
+                "Altere o preço da GamePass e envie o link novamente."
+            ).replace(",", ".")
+            return await interaction.followup.send(msg, ephemeral=True)
 
         extra = (
-            f"\n\n🔗 **GamePass enviada pelo cliente:**\n{gamepass_link}"
+            f"\n\n🔗 **GamePass enviada pelo cliente:**\n{gamepass_link}\n"
+            f"✅ **GamePass validada automaticamente:** {price_robux} Robux"
         )
 
         product_copy = self.product.copy()
         product_copy["gamepass_link"] = gamepass_link
+        product_copy["gamepass_id"] = gamepass_id
+        product_copy["gamepass_validated_price"] = price_robux
         product_copy["descricao"] = f"{product_copy.get('descricao', '')}{extra}"
         product_copy["entregavel_custom"] = (
             f"🪙 Robux líquidos: {robux_liquido}\n"
             f"🎟️ Cliente deve criar GamePass de: {robux_gamepass} Robux\n"
+            f"✅ GamePass validada em: {price_robux} Robux\n"
             f"🔗 Link da GamePass: {gamepass_link}\n"
             f"📉 Taxa Roblox considerada: 30%"
         )
 
         await handle_purchase(interaction, product_copy, self.bot)
+
+
+class GamePassTutorialView(discord.ui.View):
+    def __init__(self, bot, product):
+        super().__init__(timeout=120)
+        self.bot = bot
+        self.product = product
+
+        self.add_item(discord.ui.Button(
+            label="📺 Ver tutorial",
+            style=discord.ButtonStyle.link,
+            url="https://www.youtube.com/results?search_query=como+criar+gamepass+roblox"
+        ))
+
+    @discord.ui.button(label="Continuar", style=discord.ButtonStyle.success, emoji="➡️")
+    async def continue_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_modal(GamePassLinkModal(self.bot, self.product))
 
 
 class ConfirmRobuxView(discord.ui.View):
@@ -1518,7 +1694,24 @@ class ConfirmRobuxView(discord.ui.View):
 
     @discord.ui.button(label="Enviar GamePass", style=discord.ButtonStyle.success, emoji="🔗")
     async def confirm_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.send_modal(GamePassLinkModal(self.bot, self.product))
+        embed = discord.Embed(
+            title="📺 Tutorial de GamePass",
+            description=(
+                "Antes de enviar o link, crie a GamePass no valor exato informado.\n\n"
+                "Depois clique em **Continuar** e cole o link da sua GamePass."
+            ),
+            color=discord.Color.blue()
+        )
+        embed.add_field(
+            name="⚠️ Valor correto",
+            value=f"A GamePass precisa estar por **{self.product.get('robux_gamepass')} Robux**.",
+            inline=False
+        )
+        await interaction.response.send_message(
+            embed=embed,
+            view=GamePassTutorialView(self.bot, self.product),
+            ephemeral=True
+        )
 
     @discord.ui.button(label="Cancelar", style=discord.ButtonStyle.danger, emoji="✖️")
     async def cancel_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -2086,6 +2279,18 @@ if __name__ == "__main__":
                 return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
             embed = await build_ranking_embed()
             await interaction.response.send_message(embed=embed, ephemeral=True)
+
+
+        @bot.tree.command(name="backupgithub", description="Força um backup do data_single.json para o GitHub.")
+        async def backupgithub(interaction: discord.Interaction):
+            if not await check_admin_permission(interaction, bot):
+                return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+            await interaction.response.defer(ephemeral=True, thinking=True)
+            ok = await backup_to_github_safe("backup manual pelo Discord")
+            if ok:
+                await interaction.followup.send("✅ Backup enviado para o GitHub com sucesso.", ephemeral=True)
+            else:
+                await interaction.followup.send("❌ Não foi possível enviar o backup. Veja os logs do Railway.", ephemeral=True)
 
         @bot.tree.command(name="atualizarpaineis", description="Atualiza financeiro, ranking e bate-ponto.")
         async def atualizarpaineis(interaction: discord.Interaction):
