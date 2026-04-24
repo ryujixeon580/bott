@@ -1412,6 +1412,23 @@
             "gamepass_link": null,
             "id": 19,
             "created_at": "2026-04-24T21:44:13.605854+00:00"
+        },
+        {
+            "produto_id": 18,
+            "produto_nome": "**🌌 Caixas de Aura (x100)**",
+            "produto_descricao": "**Quer desbloquear auras INSANAS no Sailor Piece? 👀🔥**\n**Esse pack é perfeito pra quem quer sorte, estilo e poder de uma vez só!**\n\n**💎 Chance de obter auras raras\n🌈 Diversas possibilidades em cada abertura\n⚡ Ideal pra quem busca algo exclusivo\n🚀 Abra várias caixas e maximize sua sorte**\n\n**📦 ITENS INCLUSOS:**\n\n**🎁 x100 Caixa de Aura**\n\n**🔥 Abra tudo e encontre sua aura perfeita!**",
+            "user_name": "juarezzci",
+            "user_id": 1067565729802616833,
+            "valor": 13.99,
+            "status": "Pagamento_pendente",
+            "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
+            "multiplicador": 1,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "id": 20,
+            "created_at": "2026-04-24T22:04:14.270017+00:00"
         }
     ],
     "active_catalogs": [
