@@ -16,7 +16,6 @@ from functools import partial
 import copy
 import sys
 import re
-import aiohttp
 import math
 
 # --- CONFIGURAÇÃO INICIAL E CONSTANTES ---
@@ -1453,72 +1452,21 @@ class QuantitySelectView(discord.ui.View):
             view=preview_view
         )
 
-def extract_gamepass_id(url: str):
-    """Extrai o ID da GamePass de links comuns do Roblox."""
-    url = (url or "").strip()
-    if not url:
-        return None
-
-    patterns = [
-        r"/game-pass/(\d+)",
-        r"/gamepasses/(\d+)",
-        r"[?&]gamepassId=(\d+)",
-        r"[?&]id=(\d+)",
-        r"/passes/(\d+)",
-    ]
-
-    for pattern in patterns:
-        match = re.search(pattern, url, re.IGNORECASE)
-        if match:
-            return int(match.group(1))
-
-    return None
-
-
 def is_valid_gamepass_url(url: str) -> bool:
     url = (url or "").strip()
+    if not url:
+        return False
     lowered = url.lower()
-    return "roblox.com" in lowered and extract_gamepass_id(url) is not None
-
-
-async def fetch_gamepass_price_robux(gamepass_id: int):
-    """Consulta o preço atual da GamePass no Roblox."""
-    urls = [
-        f"https://apis.roblox.com/game-passes/v1/game-passes/{gamepass_id}/product-info",
-        f"https://apis.roblox.com/game-passes/v1/game-passes/{gamepass_id}/details",
+    if "roblox.com" not in lowered:
+        return False
+    allowed_parts = [
+        "/game-pass/",
+        "/gamepasses/",
+        "game-pass",
+        "gamepass",
+        "passes"
     ]
-
-    timeout = aiohttp.ClientTimeout(total=12)
-
-    async with aiohttp.ClientSession(timeout=timeout) as session:
-        last_error = None
-
-        for url in urls:
-            try:
-                async with session.get(url) as resp:
-                    if resp.status != 200:
-                        last_error = f"Roblox retornou status {resp.status}"
-                        continue
-
-                    data = await resp.json(content_type=None)
-
-                    possible_keys = [
-                        "priceInRobux",
-                        "PriceInRobux",
-                        "price",
-                        "Price"
-                    ]
-
-                    for key in possible_keys:
-                        if key in data and data[key] is not None:
-                            return True, int(data[key]), None
-
-                    last_error = "Preço não encontrado na resposta do Roblox"
-
-            except Exception as e:
-                last_error = str(e)
-
-    return False, None, last_error or "Não foi possível consultar a GamePass"
+    return any(part in lowered for part in allowed_parts)
 
 
 class GamePassLinkModal(discord.ui.Modal, title="Enviar GamePass"):
@@ -1536,8 +1484,6 @@ class GamePassLinkModal(discord.ui.Modal, title="Enviar GamePass"):
     async def on_submit(self, interaction: discord.Interaction):
         gamepass_link = self.children[0].value.strip()
 
-        gamepass_id = extract_gamepass_id(gamepass_link)
-
         if not is_valid_gamepass_url(gamepass_link):
             return await interaction.response.send_message(
                 "❌ Link inválido. Envie um link de GamePass do Roblox.",
@@ -1545,41 +1491,14 @@ class GamePassLinkModal(discord.ui.Modal, title="Enviar GamePass"):
             )
 
         robux_liquido = self.product.get("robux_liquido")
-        robux_gamepass = int(self.product.get("robux_gamepass") or 0)
-
-        await interaction.response.defer(ephemeral=True, thinking=True)
-
-        ok, price_robux, error_msg = await fetch_gamepass_price_robux(gamepass_id)
-
-        if not ok:
-            return await interaction.followup.send(
-                "❌ Não consegui verificar o preço dessa GamePass no Roblox.\n"
-                "Confira se o link está correto, se a GamePass está pública e tente novamente.\n"
-                f"Detalhe técnico: `{error_msg}`",
-                ephemeral=True
-            )
-
-        if int(price_robux) != int(robux_gamepass):
-            return await interaction.followup.send(
-                (
-                    "❌ O valor da sua GamePass está incorreto.\n\n"
-                    f"🪙 Você quer receber: **{robux_liquido:,} Robux**\n"
-                    f"🎟️ A GamePass precisa estar por: **{robux_gamepass:,} Robux**\n"
-                    f"📌 Sua GamePass está por: **{price_robux:,} Robux**\n\n"
-                    "Altere o preço da GamePass e envie o link novamente."
-                ).replace(",", "."),
-                ephemeral=True
-            )
+        robux_gamepass = self.product.get("robux_gamepass")
 
         extra = (
-            f"\n\n🔗 **GamePass enviada pelo cliente:**\n{gamepass_link}\n"
-            f"✅ **GamePass validada automaticamente:** {price_robux} Robux"
+            f"\n\n🔗 **GamePass enviada pelo cliente:**\n{gamepass_link}"
         )
 
         product_copy = self.product.copy()
         product_copy["gamepass_link"] = gamepass_link
-        product_copy["gamepass_id"] = gamepass_id
-        product_copy["gamepass_validated_price"] = price_robux
         product_copy["descricao"] = f"{product_copy.get('descricao', '')}{extra}"
         product_copy["entregavel_custom"] = (
             f"🪙 Robux líquidos: {robux_liquido}\n"
@@ -1745,9 +1664,7 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
             "robux_custom": bool(product.get("robux_custom")),
             "robux_liquido": product.get("robux_liquido"),
             "robux_gamepass": product.get("robux_gamepass"),
-            "gamepass_link": product.get("gamepass_link"),
-            "gamepass_id": product.get("gamepass_id"),
-            "gamepass_validated_price": product.get("gamepass_validated_price")
+            "gamepass_link": product.get("gamepass_link")
         }
         new_order = await db.add_order(order_data)
         thread = await interaction.channel.create_thread(name=f"Pedido #{new_order['id']} - {interaction.user.name}", type=discord.ChannelType.private_thread)
