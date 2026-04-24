@@ -1118,6 +1118,23 @@
             "categoria": "【🎲】｜itens-reroll",
             "permite_quantidade": true,
             "id": 69
+        },
+        {
+            "nome": "🚨 Robux Barato (Cópia)",
+            "descricao": ".",
+            "valor": 0.04,
+            "deliverables": [
+                "⏱️ Aguarde um membro da equipe de vendas!",
+                "📩 Envie seu nick para agilizar a entrega.",
+                "🔗 Entre no servidor privado:",
+                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
+            ],
+            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1496142125123895337/image.png?ex=69e8ce6f&is=69e77cef&hm=6152a6013dad49b5adaa7ad130cc86fd5ff500538974d8e7d3d253f930a526be&",
+            "infinito": false,
+            "status": "disponivel",
+            "categoria": "【🪙】｜robux",
+            "permite_quantidade": true,
+            "id": 70
         }
     ],
     "orders": [
