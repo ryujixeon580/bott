@@ -1631,14 +1631,18 @@ class GamePassLinkModal(discord.ui.Modal, title="Enviar GamePass"):
         ok, price_robux, error_msg = await fetch_gamepass_price_robux(gamepass_id)
 
         if not ok:
-            return await interaction.followup.send(
-                "❌ Não consegui verificar o preço dessa GamePass no Roblox.\n"
-                "Confira se o link está correto, se a GamePass está pública e tente novamente.\n"
-                f"Detalhe técnico: `{error_msg}`",
-                ephemeral=True
+            # Se a API do Roblox falhar, não trava a venda:
+            # salva o pedido para validação manual pelo ADM.
+            price_robux = None
+            validation_note = (
+                "⚠️ **Validação automática indisponível:** "
+                f"{error_msg}\n"
+                "O ADM deve conferir manualmente o valor da GamePass."
             )
+        else:
+            validation_note = f"✅ **GamePass validada automaticamente:** {price_robux} Robux"
 
-        if int(price_robux) != int(robux_gamepass):
+        if ok and int(price_robux) != int(robux_gamepass):
             msg = (
                 "❌ O valor da sua GamePass está incorreto.\n\n"
                 f"🪙 Você quer receber: **{robux_liquido:,} Robux**\n"
@@ -1650,7 +1654,7 @@ class GamePassLinkModal(discord.ui.Modal, title="Enviar GamePass"):
 
         extra = (
             f"\n\n🔗 **GamePass enviada pelo cliente:**\n{gamepass_link}\n"
-            f"✅ **GamePass validada automaticamente:** {price_robux} Robux"
+            f"{validation_note}"
         )
 
         product_copy = self.product.copy()
@@ -1857,11 +1861,33 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
             "robux_custom": bool(product.get("robux_custom")),
             "robux_liquido": product.get("robux_liquido"),
             "robux_gamepass": product.get("robux_gamepass"),
-            "gamepass_link": product.get("gamepass_link")
+            "gamepass_link": product.get("gamepass_link"),
+            "gamepass_id": product.get("gamepass_id"),
+            "gamepass_validated_price": product.get("gamepass_validated_price")
         }
         new_order = await db.add_order(order_data)
-        thread = await interaction.channel.create_thread(name=f"Pedido #{new_order['id']} - {interaction.user.name}", type=discord.ChannelType.private_thread)
-        await thread.add_user(interaction.user)
+
+        # Criação do carrinho/ticket com fallback:
+        # 1) tenta thread privada
+        # 2) se o canal não permitir, cria uma thread pública a partir de mensagem
+        try:
+            thread = await interaction.channel.create_thread(
+                name=f"Pedido #{new_order['id']} - {interaction.user.name}",
+                type=discord.ChannelType.private_thread
+            )
+            try:
+                await thread.add_user(interaction.user)
+            except Exception:
+                pass
+        except Exception as thread_error:
+            logger.warning(f"Falha ao criar private_thread; tentando thread pública: {thread_error}")
+            starter_message = await interaction.channel.send(
+                f"🛒 Pedido #{new_order['id']} criado para {interaction.user.mention}."
+            )
+            thread = await starter_message.create_thread(
+                name=f"Pedido #{new_order['id']} - {interaction.user.name}"
+            )
+
         await db.update_order(new_order['id'], {"thread_id": thread.id})
         pix_key = generate_pix_key_dynamic(new_order['valor'], interaction.user.name, str(new_order['id']), config)
         image_url = base_product.get('imagem_url')
@@ -1883,8 +1909,13 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
                 p['deliverables'] = rollback_items + p.get('deliverables', [])
                 await db.update_product(p['id'], {'deliverables': p['deliverables']})
             await update_catalog_display(bot)
-        if not interaction.response.is_done():
-            await interaction.followup.send(embed=create_error_embed("Erro", "Ocorreu um erro."), ephemeral=True)
+        try:
+            await interaction.followup.send(
+                embed=create_error_embed("Erro", f"Ocorreu um erro ao criar o carrinho: `{e}`"),
+                ephemeral=True
+            )
+        except Exception:
+            pass
 
 async def confirm_order_logic(order_id: int, bot):
     try:
@@ -2280,9 +2311,41 @@ if __name__ == "__main__":
             embed = await build_ranking_embed()
             await interaction.response.send_message(embed=embed, ephemeral=True)
 
+        @bot.tree.command(name="testebackup", description="Testa se o Railway está rodando o código novo.")
+        async def testebackup(interaction: discord.Interaction):
+            await interaction.response.send_message("✅ Código novo ativo no Railway.", ephemeral=True)
+
         @bot.tree.command(name="backupgithub", description="Força um backup do data_single.json para o GitHub.")
         async def backupgithub(interaction: discord.Interaction):
-            await interaction.response.send_message("✅ Comando chegou até aqui.", ephemeral=True)
+            try:
+                if not await check_admin_permission(interaction, bot):
+                    return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+
+                await interaction.response.defer(ephemeral=True, thinking=True)
+
+                ok = await backup_to_github_safe("backup manual pelo Discord")
+
+                if ok:
+                    await interaction.followup.send(
+                        content="✅ Backup enviado para o GitHub com sucesso!\n📎 Arquivo abaixo:",
+                        file=discord.File(DATA_FILE, filename="data_single_backup.json"),
+                        ephemeral=True
+                    )
+                else:
+                    await interaction.followup.send(
+                        "❌ Não consegui enviar para o GitHub. Confira as variáveis GITHUB_TOKEN, GITHUB_USER, GITHUB_REPO, GITHUB_BRANCH e os logs do Railway.",
+                        ephemeral=True
+                    )
+
+            except Exception as e:
+                logger.error(f"Erro no /backupgithub: {e}\n{traceback.format_exc()}")
+                try:
+                    if interaction.response.is_done():
+                        await interaction.followup.send(f"❌ Erro no backup: `{e}`", ephemeral=True)
+                    else:
+                        await interaction.response.send_message(f"❌ Erro no backup: `{e}`", ephemeral=True)
+                except Exception:
+                    pass
 
         @bot.tree.command(name="atualizarpaineis", description="Atualiza financeiro, ranking e bate-ponto.")
         async def atualizarpaineis(interaction: discord.Interaction):
