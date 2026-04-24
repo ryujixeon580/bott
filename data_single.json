@@ -1002,23 +1002,6 @@
             "permite_quantidade": false
         },
         {
-            "nome": "**💰 Robux x5000 (LIMPO)**",
-            "descricao": "**💰 Receba 5000 Robux na sua conta!**\n\n⚡ Valor já inclui taxa do Roblox\n🎮 Entrega via gamepass\n🚀 Rápido e seguro",
-            "valor": 231.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas.",
-                "📩 Enquanto isso, crie sua GamePass para receber os Robux.",
-                "⚠️ Para receber 5000 Robux líquidos, crie a GamePass com 7143 Robux.",
-                "🎥 Tutorial (exemplo): link"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1496728004150296626/icons8-robux-48.png",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🪙】｜robux",
-            "id": 59,
-            "permite_quantidade": false
-        },
-        {
             "nome": "**💎 Luck Relic (MAIS VENDIDO)**",
             "descricao": "**💎 Aumente sua sorte no Sailor Piece!**\n\n🍀 Mais chance de itens raros\n🎁 Melhor drop em bosses e farm\n⚡ Essencial para evolução rápida\n🚀 Uma das melhores Relics do jogo",
             "valor": 7.99,
