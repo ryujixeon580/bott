@@ -951,23 +951,6 @@
             "permite_quantidade": true
         },
         {
-            "nome": "**💰 Robux x100**",
-            "descricao": "**💰 Receba 100 Robux na sua conta!**\n\n⚡ Valor já inclui taxa do Roblox\n🎮 Entrega via gamepass\n🚀 Rápido e seguro",
-            "valor": 4.49,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas.",
-                "📩 Enquanto isso, crie sua GamePass para receber os Robux.",
-                "⚠️ Para receber 100 Robux líquidos, crie a GamePass com 143 Robux.",
-                "🎥 Tutorial (exemplo): link"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1496728004150296626/icons8-robux-48.png",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🪙】｜robux",
-            "id": 56,
-            "permite_quantidade": false
-        },
-        {
             "nome": "**💰 Robux x500 (LIMPO)**",
             "descricao": "**💰 Receba 500 Robux na sua conta!**\n\n⚡ Valor já inclui taxa do Roblox\n🎮 Entrega via gamepass\n🚀 Rápido e seguro",
             "valor": 23.49,
