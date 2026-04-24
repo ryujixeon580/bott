@@ -2280,17 +2280,26 @@ if __name__ == "__main__":
             embed = await build_ranking_embed()
             await interaction.response.send_message(embed=embed, ephemeral=True)
 
-
         @bot.tree.command(name="backupgithub", description="Força um backup do data_single.json para o GitHub.")
         async def backupgithub(interaction: discord.Interaction):
             if not await check_admin_permission(interaction, bot):
                 return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+
             await interaction.response.defer(ephemeral=True, thinking=True)
+
             ok = await backup_to_github_safe("backup manual pelo Discord")
+
             if ok:
-                await interaction.followup.send("✅ Backup enviado para o GitHub com sucesso.", ephemeral=True)
+                await interaction.followup.send(
+                    content="✅ Backup enviado para o GitHub com sucesso!\n📎 Arquivo salvo abaixo:",
+                    file=discord.File(DATA_FILE, filename="data_single_backup.json"),
+                    ephemeral=True
+                )
             else:
-                await interaction.followup.send("❌ Não foi possível enviar o backup. Veja os logs do Railway.", ephemeral=True)
+                await interaction.followup.send(
+                    "❌ Não foi possível enviar o backup. Veja os logs do Railway.",
+                    ephemeral=True
+                )
 
         @bot.tree.command(name="atualizarpaineis", description="Atualiza financeiro, ranking e bate-ponto.")
         async def atualizarpaineis(interaction: discord.Interaction):
