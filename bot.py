@@ -967,7 +967,8 @@ class AdminActionsView(discord.ui.View):
         if not await check_staff_permission(interaction, self.bot):
             return await interaction.response.send_message("❌ Sem permissão.", ephemeral=True)
         await db.update_order(self.order_id, {"admin_id": interaction.user.id, "claimed_at": datetime.now(timezone.utc).isoformat()})
-        await interaction.response.send_message("✅ Pedido reivindicado com sucesso.", ephemeral=True)
+        await interaction.response.defer(ephemeral=True)
+        await interaction.followup.send("✅ Pedido reivindicado com sucesso.", ephemeral=True)
 
     @discord.ui.button(label="Confirmar Pedido", style=discord.ButtonStyle.success, emoji="✅")
     async def confirm_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -1383,6 +1384,31 @@ async def product_allows_quantity(product: dict) -> bool:
     return bool(category_flags.get(product.get("categoria", "Geral"), False))
 
 
+
+async def get_category_mode(category: str, product: dict = None) -> str:
+    config = await db.get_config()
+    mode = config.get("category_modes", {}).get(category)
+
+    if mode:
+        return mode
+
+    if config.get("quantidade_por_categoria", {}).get(category):
+        return "multiplicador"
+
+    if product:
+        if "robux" in str(product.get("categoria","")).lower():
+            return "robux"
+
+    return "normal"
+
+
+async def get_category_options(category: str):
+    config = await db.get_config()
+    return config.get("category_options", {}).get(category, [
+        {"nome":"Básico","preco":9.99},
+        {"nome":"Premium","preco":14.99},
+        {"nome":"Completo","preco":19.99}
+    ])
 def is_robux_product(product: dict) -> bool:
     categoria = str(product.get("categoria", "")).lower()
     nome = str(product.get("nome", "")).lower()
