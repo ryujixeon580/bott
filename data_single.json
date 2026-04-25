@@ -1325,6 +1325,25 @@
             "id": 5,
             "created_at": "2026-04-25T00:53:59.860222+00:00",
             "thread_id": 1497400254088216609
+        },
+        {
+            "produto_id": 11,
+            "produto_nome": "**🌙 Kokushibo + F + Título {pity} (MAIS VENDIDO)**",
+            "produto_descricao": "**Domine o poder da lua no Sailor Piece com um dos sets mais temidos! 👀🔥**\n\n**💪 Alto dano e pressão constante\n🌙 Habilidades rápidas e letais\n⚔️ Excelente para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**🌙 x1 Moon Crest\n🌙 x4 Crescent Shard\n✨ x9 Lunar Essence\n💀 x16 Demon Remnant\n🔱 x25 Upper Seal**\n\n**🔥 F MOVE (UPGRADE):**\n\n**🌙 x2 Moon Crest\n🌙 x10 Crescent Shard\n🔱 x85 Upper Seal**\n\n**👑 PITY (UPGRADE):**\n\n**🔱 x155 Upper Seal**",
+            "user_name": "gabimaruszz",
+            "user_id": 1096979459892072648,
+            "valor": 11.99,
+            "status": "Pagamento_pendente",
+            "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
+            "multiplicador": 1,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "gamepass_id": null,
+            "gamepass_validated_price": null,
+            "id": 6,
+            "created_at": "2026-04-25T01:34:48.965678+00:00"
         }
     ],
     "active_catalogs": [
