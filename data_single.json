@@ -17,12 +17,12 @@
         },
         "admin_stats": {
             "487782683674411040": {
-                "total_orders": 1,
-                "total_value": 3.99,
-                "completed": 1,
+                "total_orders": 2,
+                "total_value": 4.98,
+                "completed": 2,
                 "cancelled": 0,
                 "total_time": 0.0,
-                "balance": 0.1995
+                "balance": 0.249
             }
         },
         "withdraw_requests": [],
@@ -1002,9 +1002,9 @@
             "status": "active",
             "clock_in": "2026-04-25T11:05:16.544609+00:00",
             "clock_out": null,
-            "period_orders": 1,
-            "period_value": 3.99,
-            "period_commission": 0.1995
+            "period_orders": 2,
+            "period_value": 4.98,
+            "period_commission": 0.249
         }
     }
 }
