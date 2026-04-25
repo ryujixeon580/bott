@@ -828,7 +828,7 @@
                 "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
             ],
             "imagem_url": "https://media.discordapp.net/attachments/1493415100432912436/1493932913333370900/91a573ee-1277-4256-b443-eaa437c9b602.png?ex=69ed4b32&is=69ebf9b2&hm=096e6180fda983dbd1dffd5707fcad4705bb3353b74d01ec16826e56ae443e03&=&format=webp&quality=lossless&width=1103&height=736",
-            "infinito": false,
+            "infinito": true,
             "status": "disponivel",
             "categoria": "【🗂️】｜sailor-pacotes",
             "permite_quantidade": true,
