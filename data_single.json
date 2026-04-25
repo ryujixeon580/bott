@@ -871,6 +871,25 @@
             "gamepass_validated_price": null,
             "id": 2,
             "created_at": "2026-04-25T11:59:47.026144+00:00"
+        },
+        {
+            "produto_id": 50,
+            "produto_nome": "**👑 Gilgamesh**",
+            "produto_descricao": "**Domine no Sailor Piece com um dos sets mais poderosos! 👀🔥**\n\n**💪 Alto dano e controle\n👑 Habilidades devastadoras\n⚡ Perfeito para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**👑x12 Throne Remnant**\n**🔆x6 Ancient Shard**\n**🏆x8 Golden Essence**\n**🟡x1 Phantasm Core**\n\n\n\n**🔥 Fique forte rápido e congele seus inimigos!**",
+            "user_name": "bk_000",
+            "user_id": 1283556010300280923,
+            "valor": 3.99,
+            "status": "Pagamento_pendente",
+            "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
+            "multiplicador": 1,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "gamepass_id": null,
+            "gamepass_validated_price": null,
+            "id": 3,
+            "created_at": "2026-04-25T13:26:19.967795+00:00"
         }
     ],
     "active_catalogs": [
