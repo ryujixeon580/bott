@@ -1111,7 +1111,7 @@
             "period_commission": 0.7955
         },
         "1090769808863285408": {
-            "status": "active",
+            "status": "paused",
             "clock_in": "2026-04-25T19:07:39.958502+00:00",
             "clock_out": null,
             "period_orders": 0,
