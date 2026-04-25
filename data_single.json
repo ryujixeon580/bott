@@ -117,7 +117,6 @@
             "descricao": "**Quer upar MUITO mais rápido no Sailor Piece? 👀🔥**\n\n**📈 Ganhe o DOBRO de EXP\n⚡ Suba de nível muito mais rápido\n🚀 Evolua sem perder tempo\n💪 Fique mais forte em menos tempo\n\n🔥 Ative agora e acelere seu progresso!**",
             "valor": 9.99,
             "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
                 "📩 Envie seu nick para agilizar a entrega.",
                 "🔗 Entre no servidor privado:",
                 "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
@@ -1010,7 +1009,8 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 9,
-            "created_at": "2026-04-25T03:49:47.454933+00:00"
+            "created_at": "2026-04-25T03:49:47.454933+00:00",
+            "thread_id": 1497444494575145001
         }
     ],
     "active_catalogs": [
