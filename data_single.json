@@ -1098,5 +1098,15 @@
                 "【🪙】｜robux"
             ]
         }
-    ]
+    ],
+    "attendance": {
+        "487782683674411040": {
+            "status": "active",
+            "clock_in": "2026-04-25T11:05:16.544609+00:00",
+            "clock_out": null,
+            "period_orders": 0,
+            "period_value": 0.0,
+            "period_commission": 0.0
+        }
+    }
 }
