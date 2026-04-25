@@ -1022,7 +1022,8 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 8,
-            "created_at": "2026-04-25T19:11:27.284827+00:00"
+            "created_at": "2026-04-25T19:11:27.284827+00:00",
+            "thread_id": 1497676438457946314
         }
     ],
     "active_catalogs": [
@@ -1094,7 +1095,7 @@
     ],
     "attendance": {
         "487782683674411040": {
-            "status": "active",
+            "status": "paused",
             "clock_in": "2026-04-25T11:05:16.544609+00:00",
             "clock_out": null,
             "period_orders": 2,
