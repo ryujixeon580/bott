@@ -934,7 +934,8 @@
             "reminder_target": "admin",
             "admin_id": 487782683674411040,
             "claimed_at": "2026-04-25T13:36:42.824713+00:00",
-            "confirmed_at": "2026-04-25T13:36:45.275070+00:00"
+            "confirmed_at": "2026-04-25T13:36:45.275070+00:00",
+            "thread_closed": true
         },
         {
             "produto_id": 25,
@@ -943,7 +944,7 @@
             "user_name": "phzin06021",
             "user_id": 1449162814294851614,
             "valor": 1.92,
-            "status": "Pagamento_pendente",
+            "status": "Confirmado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!\n⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 2,
             "robux_custom": false,
@@ -957,7 +958,8 @@
             "thread_id": 1497624683258974399,
             "reminder_target": "admin",
             "admin_id": 1096979459892072648,
-            "claimed_at": "2026-04-25T16:16:11.427978+00:00"
+            "claimed_at": "2026-04-25T16:16:11.427978+00:00",
+            "confirmed_at": "2026-04-25T16:40:14.622507+00:00"
         },
         {
             "produto_id": 6,
