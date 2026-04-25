@@ -901,7 +901,8 @@
             "reminder_target": "admin",
             "admin_id": 487782683674411040,
             "claimed_at": "2026-04-25T13:33:47.039145+00:00",
-            "confirmed_at": "2026-04-25T13:33:50.482909+00:00"
+            "confirmed_at": "2026-04-25T13:33:50.482909+00:00",
+            "thread_closed": true
         },
         {
             "produto_id": 25,
@@ -957,7 +958,7 @@
             "user_name": "cassianokz",
             "user_id": 1486531284854505672,
             "valor": 13.99,
-            "status": "Pagamento_pendente",
+            "status": "Confirmado",
             "entregavel": "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server",
             "multiplicador": 1,
             "robux_custom": false,
@@ -967,7 +968,12 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 6,
-            "created_at": "2026-04-25T16:26:52.106330+00:00"
+            "created_at": "2026-04-25T16:26:52.106330+00:00",
+            "thread_id": 1497635018413965373,
+            "reminder_target": "admin",
+            "admin_id": 1096979459892072648,
+            "claimed_at": "2026-04-25T16:35:21.504357+00:00",
+            "confirmed_at": "2026-04-25T16:35:23.738587+00:00"
         }
     ],
     "active_catalogs": [
