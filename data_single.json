@@ -15,7 +15,16 @@
             "🥋 | Sets Sailor Piece": true,
             "【🪙】｜robux": false
         },
-        "admin_stats": {},
+        "admin_stats": {
+            "487782683674411040": {
+                "total_orders": 1,
+                "total_value": 3.99,
+                "completed": 1,
+                "cancelled": 0,
+                "total_time": 0.0,
+                "balance": 0.1995
+            }
+        },
         "withdraw_requests": [],
         "payment_logs": [],
         "finance": {
@@ -969,9 +978,9 @@
             "status": "active",
             "clock_in": "2026-04-25T11:05:16.544609+00:00",
             "clock_out": null,
-            "period_orders": 0,
-            "period_value": 0.0,
-            "period_commission": 0.0
+            "period_orders": 1,
+            "period_value": 3.99,
+            "period_commission": 0.1995
         }
     }
 }
