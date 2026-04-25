@@ -991,7 +991,7 @@
             "user_name": "gabimaruszz",
             "user_id": 1096979459892072648,
             "valor": 11.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1001,7 +1001,8 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 7,
-            "created_at": "2026-04-25T18:27:32.161172+00:00"
+            "created_at": "2026-04-25T18:27:32.161172+00:00",
+            "thread_id": 1497665385527246878
         }
     ],
     "active_catalogs": [
