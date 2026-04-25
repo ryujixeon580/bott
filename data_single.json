@@ -12,7 +12,8 @@
             "【🗂️】｜sailor-pacotes": true,
             "【🥋】｜sailor-sets": true,
             "【🎮】｜sailor-gamepass": true,
-            "【🪙】｜robux": true
+            "🥋 | Sets Sailor Piece": true,
+            "【🪙】｜robux": false
         },
         "admin_stats": {},
         "withdraw_requests": [],
@@ -141,7 +142,7 @@
             "status": "disponivel",
             "categoria": "【🗂️】｜sailor-pacotes",
             "id": 6,
-            "permite_quantidade": false
+            "permite_quantidade": true
         },
         {
             "nome": "**🚀 Pacote B10 (x5)**",
@@ -158,7 +159,7 @@
             "status": "disponivel",
             "categoria": "【🗂️】｜sailor-pacotes",
             "id": 7,
-            "permite_quantidade": false
+            "permite_quantidade": true
         },
         {
             "nome": "**❄️ Esdeath + F + Título {pity} (MAIS VENDIDO)**",
@@ -309,40 +310,6 @@
             "permite_quantidade": false
         },
         {
-            "nome": "**🌌 Caixas de Aura (x500)**",
-            "descricao": "**Quer desbloquear auras INSANAS no Sailor Piece? 👀🔥**\n**Esse pack é perfeito pra quem quer sorte, estilo e poder de uma vez só!**\n\n**💎 Chance de obter auras raras\n🌈 Diversas possibilidades em cada abertura\n⚡ Ideal pra quem busca algo exclusivo\n🚀 Abra várias caixas e maximize sua sorte**\n\n**📦 ITENS INCLUSOS:**\n\n**🎁 x500 Caixa de Aura**\n\n**🔥 Abra tudo e encontre sua aura perfeita!**",
-            "valor": 31.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1493793263952462015/Captura_de_tela_2026-04-14_230055.png?ex=69e042e3&is=69def163&hm=5751b1f1b0ffd39399732349b878997e9c5e194d935d347f553942c8aa23ed87&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🗂️】｜sailor-pacotes",
-            "id": 17,
-            "permite_quantidade": false
-        },
-        {
-            "nome": "**🌌 Caixas de Aura (x100)**",
-            "descricao": "**Quer desbloquear auras INSANAS no Sailor Piece? 👀🔥**\n**Esse pack é perfeito pra quem quer sorte, estilo e poder de uma vez só!**\n\n**💎 Chance de obter auras raras\n🌈 Diversas possibilidades em cada abertura\n⚡ Ideal pra quem busca algo exclusivo\n🚀 Abra várias caixas e maximize sua sorte**\n\n**📦 ITENS INCLUSOS:**\n\n**🎁 x100 Caixa de Aura**\n\n**🔥 Abra tudo e encontre sua aura perfeita!**",
-            "valor": 13.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1493793263952462015/Captura_de_tela_2026-04-14_230055.png?ex=69e042e3&is=69def163&hm=5751b1f1b0ffd39399732349b878997e9c5e194d935d347f553942c8aa23ed87&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🗂️】｜sailor-pacotes",
-            "id": 18,
-            "permite_quantidade": false
-        },
-        {
             "nome": "**🌌 Caixas de Aura (x10)**",
             "descricao": "**Quer desbloquear auras INSANAS no Sailor Piece? 👀🔥**\n**Esse pack é perfeito pra quem quer sorte, estilo e poder de uma vez só!**\n\n**💎 Chance de obter auras raras\n🌈 Diversas possibilidades em cada abertura\n⚡ Ideal pra quem busca algo exclusivo\n🚀 Abra várias caixas e maximize sua sorte**\n\n**📦 ITENS INCLUSOS:**\n\n**🎁 x10 Caixa de Aura**\n\n**🔥 Abra tudo e encontre sua aura perfeita!**",
             "valor": 1.99,
@@ -357,41 +324,7 @@
             "status": "disponivel",
             "categoria": "【🗂️】｜sailor-pacotes",
             "id": 19,
-            "permite_quantidade": false
-        },
-        {
-            "nome": "**💍 Caixas de Cosmético (x500)**",
-            "descricao": "**Quer desbloquear cosméticos INSANOS no Sailor Piece? 👀🔥**\n\n**Esse pack é perfeito pra quem quer sorte, estilo e poder de uma vez só!**\n\n**💎 Chance de obter cosméticos raros\n🌈 Diversas possibilidades em cada abertura\n⚡ Ideal pra quem busca algo exclusivo\n🚀 Abra várias caixas e maximize sua sorte**\n\n**📦 ITENS INCLUSOS:**\n\n**🎁 x500 Caixa de Cosméticos**\n\n**🔥 Abra tudo e encontre seu cosmético perfeito!**",
-            "valor": 24.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492980861719679096/Captura_de_tela_2026-04-12_171245.png?ex=69dd4e47&is=69dbfcc7&hm=1e930b7f4befabb9fad46d65d7c5165e4edd8446e1919f36e97cd3775ea8399d&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🗂️】｜sailor-pacotes",
-            "id": 20,
-            "permite_quantidade": false
-        },
-        {
-            "nome": "**💍 Caixas de Cosmético (x100)**",
-            "descricao": "**Quer desbloquear cosméticos INSANOS no Sailor Piece? 👀🔥**\n\n**Esse pack é perfeito pra quem quer sorte, estilo e poder de uma vez só!**\n\n**💎 Chance de obter cosméticos raros\n🌈 Diversas possibilidades em cada abertura\n⚡ Ideal pra quem busca algo exclusivo\n🚀 Abra várias caixas e maximize sua sorte**\n\n**📦 ITENS INCLUSOS:**\n\n**🎁 x100 Caixa de Cosméticos**\n\n**🔥 Abra tudo e encontre seu cosmético perfeito!**",
-            "valor": 7.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492980861719679096/Captura_de_tela_2026-04-12_171245.png?ex=69dd4e47&is=69dbfcc7&hm=1e930b7f4befabb9fad46d65d7c5165e4edd8446e1919f36e97cd3775ea8399d&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🗂️】｜sailor-pacotes",
-            "id": 21,
-            "permite_quantidade": false
+            "permite_quantidade": true
         },
         {
             "nome": "**💍 Caixas de Cosmético (x10)**",
@@ -408,10 +341,10 @@
             "status": "disponivel",
             "categoria": "【🗂️】｜sailor-pacotes",
             "id": 22,
-            "permite_quantidade": false
+            "permite_quantidade": true
         },
         {
-            "nome": "Robux Barato",
+            "nome": " Barato",
             "descricao": ".",
             "valor": 0.04,
             "deliverables": [
@@ -459,363 +392,6 @@
             "status": "disponivel",
             "categoria": "【🎲】｜itens-reroll",
             "id": 25,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**💪 Power Shard x1.000**",
-            "descricao": "**✨ Rerolla seu poder atual, dando a chance de conseguir um poder mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 0.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492981617633919098/Captura_de_tela_2026-04-12_171541.png?ex=69dd4efb&is=69dbfd7b&hm=43407867b8c042585d1ef97eac694cc802e67bdd3987e1bd57462697fa055ddd&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 26,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**✨ Passive Shard x1.000**",
-            "descricao": "**🔷 Passive Shard**\n**✨ Utilizado para obter ou melhorar passivas poderosas**\n\n**🧬 Bônus constantes no personagem**\n**⚡ Melhor desempenho geral**\n**🚀 Vantagem ativa o tempo todo**\n\n**💎 Item chave pra builds completas!**",
-            "valor": 0.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1493160986448887949/Captura_de_tela_2026-04-13_050822.png?ex=69ddf608&is=69dca488&hm=c1605d19ba09fd3a5716014269232bf946233ac121a7828a16c0a5ed1942b404&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 27,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🎁 Mythical Chest x1.000**",
-            "descricao": "**✨ Abra para receber **recompensas raras e extremamente valiosas**\n\n🎁 **Chance de itens top tier**\n🔥 **Drops lendários e exclusivos**\n⚡ **Grande boost na sua conta**\n🚀 **Pode vir itens muito raros**\n\n💎 **Perfeito pra quem quer sorte e itens OP!**",
-            "valor": 1.49,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492979790758547629/Captura_de_tela_2026-04-12_170814.png?ex=69ddf608&is=69dca488&hm=59380a83054ad11596aecc396d5f9b79e9a0c3a1782db10ad7f3556ef600fadb&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 28,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**👑 Clan Reroll x5.000**",
-            "descricao": "**✨ Rerolla seu clã atual, dando a chance de conseguir um clã mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 2.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492980333304479906/Captura_de_tela_2026-04-12_171038.png?ex=69dd4dc9&is=69dbfc49&hm=b96c5d041f33d25b448e32701bd7461d066835c6836c56c009e5cf64593ed63c&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 29,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**👑 Clan Reroll x10.000 (MAIS VENDIDO)**",
-            "descricao": "**✨ Rerolla seu clã atual, dando a chance de conseguir um clã mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 5.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492980333304479906/Captura_de_tela_2026-04-12_171038.png?ex=69dd4dc9&is=69dbfc49&hm=b96c5d041f33d25b448e32701bd7461d066835c6836c56c009e5cf64593ed63c&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 30,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**👑 Clan Reroll x20.000**",
-            "descricao": "**✨ Rerolla seu clã atual, dando a chance de conseguir um clã mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 9.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492980333304479906/Captura_de_tela_2026-04-12_171038.png?ex=69dd4dc9&is=69dbfc49&hm=b96c5d041f33d25b448e32701bd7461d066835c6836c56c009e5cf64593ed63c&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 31,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🔷 Trait Reroll x5,000**",
-            "descricao": "**✨ Rerolla seu atributo atual, dando a chance de conseguir um atributo mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 2.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492979517214429325/Screenshot_2026-01-03_100502.png?ex=69dd4d07&is=69dbfb87&hm=b24909ef12a03cd9ac66b87c17ce8a5b0996ca6eb14cef2d13abeac4c225ef3b&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 32,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🔷 Trait Reroll x10,000 (MAIS VENDIDO)**",
-            "descricao": "**✨ Rerolla seu atributo atual, dando a chance de conseguir um atributo mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 5.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492979517214429325/Screenshot_2026-01-03_100502.png?ex=69dd4d07&is=69dbfb87&hm=b24909ef12a03cd9ac66b87c17ce8a5b0996ca6eb14cef2d13abeac4c225ef3b&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 33,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🔷 Trait Reroll x20,000**",
-            "descricao": "**✨ Rerolla seu atributo atual, dando a chance de conseguir um atributo mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 9.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492979517214429325/Screenshot_2026-01-03_100502.png?ex=69dd4d07&is=69dbfb87&hm=b24909ef12a03cd9ac66b87c17ce8a5b0996ca6eb14cef2d13abeac4c225ef3b&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 34,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🔸 Raça Reroll x5.000**",
-            "descricao": "**✨ Rerolla sua raça atual, dando a chance de conseguir uma raça mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 2.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492979305825829117/Screenshot_2025-12-24_153500.png?ex=69dd4cd4&is=69dbfb54&hm=135b70abf0d05c41427dbbfe0136045042c2ed664778e1b4f8375adc7418b7df&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 35,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🔸 Raça Reroll x10.000 (MAIS VENDIDO)**",
-            "descricao": "**✨ Rerolla sua raça atual, dando a chance de conseguir uma raça mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 5.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492979305825829117/Screenshot_2025-12-24_153500.png?ex=69dd4cd4&is=69dbfb54&hm=135b70abf0d05c41427dbbfe0136045042c2ed664778e1b4f8375adc7418b7df&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 36,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🔸 Raça Reroll x20.000**",
-            "descricao": "**✨ Rerolla sua raça atual, dando a chance de conseguir uma raça mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 9.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492979305825829117/Screenshot_2025-12-24_153500.png?ex=69dd4cd4&is=69dbfb54&hm=135b70abf0d05c41427dbbfe0136045042c2ed664778e1b4f8375adc7418b7df&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 37,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**💪 Power Shard x5.000**",
-            "descricao": "**✨ Rerolla seu poder atual, dando a chance de conseguir um poder mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 2.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492981617633919098/Captura_de_tela_2026-04-12_171541.png?ex=69dd4efb&is=69dbfd7b&hm=43407867b8c042585d1ef97eac694cc802e67bdd3987e1bd57462697fa055ddd&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 38,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**💪 Power Shard x10.000 (MAIS VENDIDO)**",
-            "descricao": "**✨ Rerolla seu poder atual, dando a chance de conseguir um poder mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 5.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492981617633919098/Captura_de_tela_2026-04-12_171541.png?ex=69dd4efb&is=69dbfd7b&hm=43407867b8c042585d1ef97eac694cc802e67bdd3987e1bd57462697fa055ddd&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 39,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**💪 Power Shard x20.000**",
-            "descricao": "**✨ Rerolla seu poder atual, dando a chance de conseguir um poder mais forte e com bônus exclusivos**\n\n**🔥 Aumente seu dano e sorte\n⚡ Ganhe habilidades especiais\n🚀 Evolua MUITO mais rápido**\n\n**💎 Item essencial pra quem quer ficar OP no jogo!**",
-            "valor": 9.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492981617633919098/Captura_de_tela_2026-04-12_171541.png?ex=69dd4efb&is=69dbfd7b&hm=43407867b8c042585d1ef97eac694cc802e67bdd3987e1bd57462697fa055ddd&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 40,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**✨ Passive Shard x5.000**",
-            "descricao": "**🔷 Passive Shard**\n**✨ Utilizado para obter ou melhorar passivas poderosas**\n\n**🧬 Bônus constantes no personagem**\n**⚡ Melhor desempenho geral**\n**🚀 Vantagem ativa o tempo todo**\n\n**💎 Item chave pra builds completas!**",
-            "valor": 2.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1493160986448887949/Captura_de_tela_2026-04-13_050822.png?ex=69ddf608&is=69dca488&hm=c1605d19ba09fd3a5716014269232bf946233ac121a7828a16c0a5ed1942b404&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 41,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**✨ Passive Shard x10.000 (MAIS VENDIDO)**",
-            "descricao": "**🔷 Passive Shard**\n**✨ Utilizado para obter ou melhorar passivas poderosas**\n\n**🧬 Bônus constantes no personagem**\n**⚡ Melhor desempenho geral**\n**🚀 Vantagem ativa o tempo todo**\n\n**💎 Item chave pra builds completas!**",
-            "valor": 5.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1493160986448887949/Captura_de_tela_2026-04-13_050822.png?ex=69ddf608&is=69dca488&hm=c1605d19ba09fd3a5716014269232bf946233ac121a7828a16c0a5ed1942b404&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 42,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**✨ Passive Shard x20.000**",
-            "descricao": "**🔷 Passive Shard**\n**✨ Utilizado para obter ou melhorar passivas poderosas**\n\n**🧬 Bônus constantes no personagem**\n**⚡ Melhor desempenho geral**\n**🚀 Vantagem ativa o tempo todo**\n\n**💎 Item chave pra builds completas!**",
-            "valor": 9.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1493160986448887949/Captura_de_tela_2026-04-13_050822.png?ex=69ddf608&is=69dca488&hm=c1605d19ba09fd3a5716014269232bf946233ac121a7828a16c0a5ed1942b404&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 43,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🎁 Mythical Chest x5.000**",
-            "descricao": "**✨ Abra para receber **recompensas raras e extremamente valiosas**\n\n🎁 **Chance de itens top tier**\n🔥 **Drops lendários e exclusivos**\n⚡ **Grande boost na sua conta**\n🚀 **Pode vir itens muito raros**\n\n💎 **Perfeito pra quem quer sorte e itens OP!**",
-            "valor": 3.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492979790758547629/Captura_de_tela_2026-04-12_170814.png?ex=69ddf608&is=69dca488&hm=59380a83054ad11596aecc396d5f9b79e9a0c3a1782db10ad7f3556ef600fadb&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 44,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🎁 Mythical Chest x10.000 (MAIS VENDIDO)**",
-            "descricao": "**✨ Abra para receber **recompensas raras e extremamente valiosas**\n\n🎁 **Chance de itens top tier**\n🔥 **Drops lendários e exclusivos**\n⚡ **Grande boost na sua conta**\n🚀 **Pode vir itens muito raros**\n\n💎 **Perfeito pra quem quer sorte e itens OP!**",
-            "valor": 7.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492979790758547629/Captura_de_tela_2026-04-12_170814.png?ex=69ddf608&is=69dca488&hm=59380a83054ad11596aecc396d5f9b79e9a0c3a1782db10ad7f3556ef600fadb&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 45,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🎁 Mythical Chest x20.000**",
-            "descricao": "**✨ Abra para receber **recompensas raras e extremamente valiosas**\n\n🎁 **Chance de itens top tier**\n🔥 **Drops lendários e exclusivos**\n⚡ **Grande boost na sua conta**\n🚀 **Pode vir itens muito raros**\n\n💎 **Perfeito pra quem quer sorte e itens OP!**",
-            "valor": 9.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492979790758547629/Captura_de_tela_2026-04-12_170814.png?ex=69ddf608&is=69dca488&hm=59380a83054ad11596aecc396d5f9b79e9a0c3a1782db10ad7f3556ef600fadb&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜sailor-itens",
-            "id": 46,
             "permite_quantidade": true
         },
         {
@@ -1224,23 +800,6 @@
             "categoria": "🥋 | Sets Sailor Piece",
             "permite_quantidade": true,
             "id": 75
-        },
-        {
-            "nome": "Robux Barato",
-            "descricao": ".",
-            "valor": 0.04,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1496142125123895337/image.png?ex=69e8ce6f&is=69e77cef&hm=6152a6013dad49b5adaa7ad130cc86fd5ff500538974d8e7d3d253f930a526be&",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🪙】｜robux",
-            "permite_quantidade": false,
-            "id": 76
         }
     ],
     "orders": [
