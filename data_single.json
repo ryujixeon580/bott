@@ -833,7 +833,27 @@
             "id": 77
         }
     ],
-    "orders": [],
+    "orders": [
+        {
+            "produto_id": 4,
+            "produto_nome": "**💎 2x Gemas GamePass**",
+            "produto_descricao": "**Quer ficar rico em gemas? Essa aqui é ESSENCIAL! 👀🔥**\n\n**💰 Receba o DOBRO de GEMAS\n🎁 Mais recompensas em menos tempo\n⚡ Junte gemas muito mais rápido\n🚀 Desbloqueie itens e vantagens com facilidade**",
+            "user_name": "ryuji019",
+            "user_id": 487782683674411040,
+            "valor": 16.99,
+            "status": "Pagamento_pendente",
+            "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
+            "multiplicador": 1,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "gamepass_id": null,
+            "gamepass_validated_price": null,
+            "id": 1,
+            "created_at": "2026-04-25T11:59:25.790199+00:00"
+        }
+    ],
     "active_catalogs": [
         {
             "message_id": 1492968934733775029,
