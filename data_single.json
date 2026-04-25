@@ -1010,7 +1010,7 @@
             "user_name": "joaolindoa",
             "user_id": 1332917865204027454,
             "valor": 9.68,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!\n⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 2,
             "robux_custom": false,
@@ -1062,7 +1062,10 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 10,
-            "created_at": "2026-04-25T23:09:23.017829+00:00"
+            "created_at": "2026-04-25T23:09:23.017829+00:00",
+            "thread_id": 1497736315163381971,
+            "admin_id": 1096979459892072648,
+            "claimed_at": "2026-04-25T23:11:45.075066+00:00"
         }
     ],
     "active_catalogs": [
