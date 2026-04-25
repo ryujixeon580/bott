@@ -141,9 +141,7 @@
             "nome": "**🚀 Ascensão (1 → 10)**",
             "descricao": "**Evolua de forma RÁPIDA no Sailor Piece e alcance um novo nível de poder! 💪**\n\n**⚡ Progressão acelerada\n💎 Muito mais força em pouco tempo\n🚀 Fique forte sem perder horas farmando\n🔥 Vantagem enorme no mid/end game**\n\n**✨ O jeito mais rápido de ficar OP!**\n**❗ Itens inclusos:**\n\n**- x5 Void Fragment / x2 Limitless Ring\n- x7 Dismantle Fang / x5 Dark Ring\n- x4 Reiatsu Core / x1 Blood Ring\n- x2 Hog Fragment / x2 Atomic Core\n- x3 Blood Ring / x3 Flame Soul\n- x2 Cursed Flesh / x2 Infinity Essence\n- x2 Phantasm Core / x3 Slime Core\n- x2 Azure Heart / x2 Evolution Fragment\n- x2 Path Fragment / x3 Corrupt Crown**",
             "valor": 13.99,
-            "deliverables": [
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
+            "deliverables": [],
             "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492388389054316705/ChatGPT_Image_11_de_abr._de_2026_01_58_26.png?ex=69dd20bf&is=69dbcf3f&hm=45dcb4c570b160f55df18c72fa5aa0b448af88650ff46ecab0212ff8f11ed9c9&",
             "infinito": false,
             "status": "disponivel",
@@ -948,7 +946,9 @@
             "id": 5,
             "created_at": "2026-04-25T15:45:47.983393+00:00",
             "thread_id": 1497624683258974399,
-            "reminder_target": "admin"
+            "reminder_target": "admin",
+            "admin_id": 1096979459892072648,
+            "claimed_at": "2026-04-25T16:16:11.427978+00:00"
         }
     ],
     "active_catalogs": [
