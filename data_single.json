@@ -1052,7 +1052,7 @@
             "user_name": "hamster2311",
             "user_id": 805804533892513813,
             "valor": 24.99,
-            "status": "Pagamento_pendente",
+            "status": "Confirmado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1065,7 +1065,8 @@
             "created_at": "2026-04-25T23:09:23.017829+00:00",
             "thread_id": 1497736315163381971,
             "admin_id": 1096979459892072648,
-            "claimed_at": "2026-04-25T23:11:45.075066+00:00"
+            "claimed_at": "2026-04-25T23:12:24.677733+00:00",
+            "confirmed_at": "2026-04-25T23:15:51.994100+00:00"
         }
     ],
     "active_catalogs": [
