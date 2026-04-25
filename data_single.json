@@ -34,7 +34,7 @@
         "cargo_atendimento_id": null,
         "admin_commission_percent": 5,
         "attendance_config": {
-            "channel_id": null,
+            "channel_id": 1496877551300120627,
             "message_id": null
         },
         "painel_config": {
