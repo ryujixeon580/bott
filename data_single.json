@@ -1413,12 +1413,12 @@
     ],
     "attendance": {
         "487782683674411040": {
-            "status": "offline",
-            "clock_in": "2026-04-25T11:05:16.544609+00:00",
-            "clock_out": "2026-04-26T09:11:14.571177+00:00",
-            "period_orders": 2,
-            "period_value": 4.98,
-            "period_commission": 0.249
+            "status": "active",
+            "clock_in": "2026-04-26T20:42:59.468949+00:00",
+            "clock_out": null,
+            "period_orders": 0,
+            "period_value": 0.0,
+            "period_commission": 0.0
         },
         "1096979459892072648": {
             "status": "offline",
