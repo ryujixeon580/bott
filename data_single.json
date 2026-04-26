@@ -1168,7 +1168,7 @@
             "user_name": "exh911",
             "user_id": 1336755948269735936,
             "valor": 4.99,
-            "status": "Pagamento_pendente",
+            "status": "Confirmado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1178,7 +1178,12 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 15,
-            "created_at": "2026-04-26T00:20:58.632411+00:00"
+            "created_at": "2026-04-26T00:20:58.632411+00:00",
+            "thread_id": 1497754333310222336,
+            "admin_id": 1096979459892072648,
+            "claimed_at": "2026-04-26T00:21:07.773511+00:00",
+            "reminder_target": "admin",
+            "confirmed_at": "2026-04-26T00:23:18.961651+00:00"
         }
     ],
     "active_catalogs": [
