@@ -1076,7 +1076,7 @@
             "user_name": "exh911",
             "user_id": 1336755948269735936,
             "valor": 4.99,
-            "status": "Pagamento_pendente",
+            "status": "Confirmado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1088,7 +1088,10 @@
             "id": 11,
             "created_at": "2026-04-25T23:56:52.809759+00:00",
             "thread_id": 1497748267646062757,
-            "reminder_target": "admin"
+            "reminder_target": "admin",
+            "admin_id": 1096979459892072648,
+            "claimed_at": "2026-04-26T00:05:21.107264+00:00",
+            "confirmed_at": "2026-04-26T00:05:24.235601+00:00"
         }
     ],
     "active_catalogs": [
