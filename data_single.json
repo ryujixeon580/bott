@@ -1250,7 +1250,27 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 18,
-            "created_at": "2026-04-26T00:56:05.355992+00:00"
+            "created_at": "2026-04-26T00:56:05.355992+00:00",
+            "thread_id": 1497763168674517084
+        },
+        {
+            "produto_id": 22,
+            "produto_nome": "**💍 Caixas de Cosmético (x10)**",
+            "produto_descricao": "**Quer desbloquear cosméticos INSANOS no Sailor Piece? 👀🔥**\n\n**Esse pack é perfeito pra quem quer sorte. estilo e poder de uma vez só!**\n\n**💎 Chance de obter cosméticos raros\n🌈 Diversas possibilidades em cada abertura\n⚡ Ideal pra quem busca algo exclusivo\n🚀 Abra várias caixas e maximize sua sorte**\n\n**📦 ITENS INCLUSOS:**\n\n**🎁 x10 Caixa de Cosméticos**\n\n**🔥 Abra tudo e encontre seu cosmético perfeito!**\n\n📦 **Quantidade final:** 30",
+            "user_name": "exh911",
+            "user_id": 1336755948269735936,
+            "valor": 2.82,
+            "status": "Pagamento_pendente",
+            "entregavel": "⏱️ Aguarde um membro da equipe de vendas!\n⏱️ Aguarde um membro da equipe de vendas!\n⏱️ Aguarde um membro da equipe de vendas!",
+            "multiplicador": 3,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "gamepass_id": null,
+            "gamepass_validated_price": null,
+            "id": 19,
+            "created_at": "2026-04-26T01:06:54.794193+00:00"
         }
     ],
     "active_catalogs": [
