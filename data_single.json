@@ -1243,7 +1243,7 @@
             "user_name": "joaolindoa",
             "user_id": 1332917865204027454,
             "valor": 29.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "📩 Envie seu nick para agilizar a entrega.",
             "multiplicador": 1,
             "robux_custom": false,
