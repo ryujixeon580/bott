@@ -1352,9 +1352,9 @@
     ],
     "attendance": {
         "487782683674411040": {
-            "status": "paused",
+            "status": "offline",
             "clock_in": "2026-04-25T11:05:16.544609+00:00",
-            "clock_out": null,
+            "clock_out": "2026-04-26T09:11:14.571177+00:00",
             "period_orders": 2,
             "period_value": 4.98,
             "period_commission": 0.249
