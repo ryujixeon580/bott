@@ -1351,7 +1351,7 @@
             "user_name": "jeanpyerre.",
             "user_id": 1200070888767361037,
             "valor": 29.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "📩 Envie seu nick para agilizar a entrega.",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1408,7 +1408,8 @@
             "reminder_target": "admin",
             "admin_id": 487782683674411040,
             "claimed_at": "2026-04-27T06:32:03.873951+00:00",
-            "confirmed_at": "2026-04-27T06:32:06.928725+00:00"
+            "confirmed_at": "2026-04-27T06:32:06.928725+00:00",
+            "thread_closed": true
         }
     ],
     "active_catalogs": [
