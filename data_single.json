@@ -1518,7 +1518,7 @@
             "user_name": "lokisgames3732",
             "user_id": 715586512905044059,
             "valor": 49.99,
-            "status": "Pagamento_pendente",
+            "status": "Confirmado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1528,7 +1528,10 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 31,
-            "created_at": "2026-04-27T21:21:44.777716+00:00"
+            "created_at": "2026-04-27T21:21:44.777716+00:00",
+            "thread_id": 1498434003395678308,
+            "reminder_target": "admin",
+            "confirmed_at": "2026-04-27T22:01:47.919024+00:00"
         }
     ],
     "active_catalogs": [
