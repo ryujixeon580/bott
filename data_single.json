@@ -1374,7 +1374,7 @@
             "user_name": "rdandv",
             "user_id": 1451831691177103400,
             "valor": 3.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
