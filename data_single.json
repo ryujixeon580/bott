@@ -1450,7 +1450,27 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 27,
-            "created_at": "2026-04-27T16:13:41.788220+00:00"
+            "created_at": "2026-04-27T16:13:41.788220+00:00",
+            "thread_id": 1498356481853100245
+        },
+        {
+            "produto_id": 25,
+            "produto_nome": "🟧 | Clan Reroll  x1.000",
+            "produto_descricao": "Permite **trocar o seu clã** no *Sailor Piece*. dando a chance de obter clãs com **bônus mais fortes e raros** 💥\n\n✨ Com ele. você pode melhorar sua build. ganhar **mais dano. sorte e vantagens no combate**. facilitando sua evolução no jogo\n\n💎 **Uma forma rápida e eficiente de ficar mais forte e buscar os melhores clãs!**\n\n📦 **Quantidade final:** 3.000",
+            "user_name": "juarezzci",
+            "user_id": 1067565729802616833,
+            "valor": 2.82,
+            "status": "Pagamento_pendente",
+            "entregavel": "⏱️ Aguarde um membro da equipe de vendas!\n⏱️ Aguarde um membro da equipe de vendas!\n⏱️ Aguarde um membro da equipe de vendas!",
+            "multiplicador": 3,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "gamepass_id": null,
+            "gamepass_validated_price": null,
+            "id": 28,
+            "created_at": "2026-04-27T16:37:42.455713+00:00"
         }
     ],
     "active_catalogs": [
