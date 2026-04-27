@@ -1428,7 +1428,8 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 26,
-            "created_at": "2026-04-27T14:20:06.332041+00:00"
+            "created_at": "2026-04-27T14:20:06.332041+00:00",
+            "thread_id": 1498327900846293183
         }
     ],
     "active_catalogs": [
@@ -1516,12 +1517,12 @@
             "period_commission": 0.0
         },
         "1090769808863285408": {
-            "status": "offline",
-            "clock_in": "2026-04-26T20:44:59.117535+00:00",
-            "clock_out": "2026-04-27T04:48:48.309347+00:00",
-            "period_orders": 1,
-            "period_value": 5.99,
-            "period_commission": 0.29950000000000004
+            "status": "active",
+            "clock_in": "2026-04-27T14:24:22.254349+00:00",
+            "clock_out": null,
+            "period_orders": 0,
+            "period_value": 0.0,
+            "period_commission": 0.0
         }
     }
 }
