@@ -1440,7 +1440,7 @@
             "user_name": "danielazefig",
             "user_id": 1089196679242199040,
             "valor": 1.49,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1491,7 +1491,8 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 29,
-            "created_at": "2026-04-27T17:07:47.519583+00:00"
+            "created_at": "2026-04-27T17:07:47.519583+00:00",
+            "thread_id": 1498370094139576502
         }
     ],
     "active_catalogs": [
