@@ -1415,7 +1415,7 @@
             "user_name": "carlos023886",
             "user_id": 1429533234856988715,
             "valor": 11.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
