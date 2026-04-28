@@ -1499,7 +1499,7 @@
             "user_name": "rdandv",
             "user_id": 1451831691177103400,
             "valor": 5.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server",
             "multiplicador": 1,
             "robux_custom": false,
