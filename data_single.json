@@ -1479,7 +1479,7 @@
             "user_name": "churro_33.",
             "user_id": 1449082331603276021,
             "valor": 11.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
