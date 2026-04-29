@@ -1630,7 +1630,7 @@
             "user_name": "angel08508",
             "user_id": 1182764870177935394,
             "valor": 11.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
