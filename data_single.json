@@ -1672,7 +1672,7 @@
             "user_name": "angel08508",
             "user_id": 1182764870177935394,
             "valor": 4.55,
-            "status": "Pagamento_pendente",
+            "status": "Confirmado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!\n⏱️ Aguarde um membro da equipe de vendas!\n⏱️ Aguarde um membro da equipe de vendas!\n⏱️ Aguarde um membro da equipe de vendas!\n⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 5,
             "robux_custom": false,
@@ -1682,7 +1682,11 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 38,
-            "created_at": "2026-04-29T22:30:55.462098+00:00"
+            "created_at": "2026-04-29T22:30:55.462098+00:00",
+            "thread_id": 1499176188319371325,
+            "admin_id": 1096979459892072648,
+            "claimed_at": "2026-04-29T22:31:32.872480+00:00",
+            "confirmed_at": "2026-04-29T22:34:23.711797+00:00"
         }
     ],
     "active_catalogs": [
