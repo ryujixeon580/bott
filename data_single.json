@@ -1588,7 +1588,7 @@
             "user_name": "rj_clt_games",
             "user_id": 1090769808863285408,
             "valor": 11.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1618,7 +1618,8 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 35,
-            "created_at": "2026-04-29T21:50:48.026252+00:00"
+            "created_at": "2026-04-29T21:50:48.026252+00:00",
+            "thread_id": 1499166090486616065
         }
     ],
     "active_catalogs": [
