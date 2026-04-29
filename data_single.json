@@ -1543,7 +1543,7 @@
             "user_name": "jhon.op._73703",
             "user_id": 1249912316791754752,
             "valor": 7.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "📩 Envie seu nick para agilizar a entrega.",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1575,7 +1575,9 @@
             "id": 33,
             "created_at": "2026-04-29T21:19:14.738783+00:00",
             "thread_id": 1499158149997920387,
-            "reminder_target": "admin"
+            "reminder_target": "admin",
+            "admin_id": 1090769808863285408,
+            "claimed_at": "2026-04-29T21:25:04.777166+00:00"
         }
     ],
     "active_catalogs": [
