@@ -1609,7 +1609,7 @@
             "user_name": "ryuji019",
             "user_id": 487782683674411040,
             "valor": 13.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "aguarde um membro da equipe",
             "multiplicador": 1,
             "robux_custom": false,
