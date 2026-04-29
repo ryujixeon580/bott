@@ -1695,7 +1695,7 @@
             "user_name": "gabimaruszz",
             "user_id": 1096979459892072648,
             "valor": 5.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1705,7 +1705,8 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 39,
-            "created_at": "2026-04-29T23:57:08.775339+00:00"
+            "created_at": "2026-04-29T23:57:08.775339+00:00",
+            "thread_id": 1499197886221783140
         }
     ],
     "active_catalogs": [
