@@ -1736,7 +1736,7 @@
             "user_name": "rdandv",
             "user_id": 1451831691177103400,
             "valor": 7.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "📩 Envie seu nick para agilizar a entrega.",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1746,7 +1746,8 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 41,
-            "created_at": "2026-04-30T04:59:19.030044+00:00"
+            "created_at": "2026-04-30T04:59:19.030044+00:00",
+            "thread_id": 1499273931532664903
         }
     ],
     "active_catalogs": [
