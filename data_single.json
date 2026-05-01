@@ -1809,7 +1809,28 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 44,
-            "created_at": "2026-05-01T14:28:42.953597+00:00"
+            "created_at": "2026-05-01T14:28:42.953597+00:00",
+            "thread_id": 1499779612769779743,
+            "reminder_target": "admin"
+        },
+        {
+            "produto_id": 14,
+            "produto_nome": "**⚫ Atomic + F + Título {pity} (MAIS VENDIDO)**",
+            "produto_descricao": "**Desperte um poder ABSURDO no Sailor Piece e domine tudo ao seu redor! 👀🔥**\n\n**💪 Dano massivo e explosivo\n⚫ Habilidades sombrias devastadoras\n⚡ Perfeito para PvP e farm avançado\n🚀 Poder instantâneo sem precisar farmar**\n\n**📦 ITENS INCLUSOS:**\n\n**⚫ x1 Atomic Omen\n✨ x3 Eminence Essence\n🌑 x9 Shadow Remnant\n🔮 x16 Magic Shard\n🌀 x80 Abyss Sigil**\n\n**🔥 F MOVE (UPGRADE):**\n\n**🗝️ x5 Tower Keys**\n**🌀 x20 Abyss Sigil**\n\n**👑 PITY (UPGRADE):**\n\n**🌀 x150 Abyss Sigil**\n\n**🔥 Alcance o nível máximo de poder e simplesmente apague seus inimigos!**",
+            "user_name": "carlos023886",
+            "user_id": 1429533234856988715,
+            "valor": 9.99,
+            "status": "Pagamento_pendente",
+            "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
+            "multiplicador": 1,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "gamepass_id": null,
+            "gamepass_validated_price": null,
+            "id": 45,
+            "created_at": "2026-05-01T18:53:29.029772+00:00"
         }
     ],
     "active_catalogs": [
