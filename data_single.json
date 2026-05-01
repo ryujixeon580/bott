@@ -1791,6 +1791,25 @@
             "id": 43,
             "created_at": "2026-05-01T08:16:15.889272+00:00",
             "thread_id": 1499685881794269277
+        },
+        {
+            "produto_id": 67,
+            "produto_nome": "🟪 | Trait Reroll  x2000",
+            "produto_descricao": "Permite **trocar seu atributo** no *Sailor Piece*. dando a chance de obter estatísticas com **bônus mais fortes e raros** 💥\n\n✨ Com ela. você pode melhorar sua build. ganhar **mais dano. sorte e vantagens no combate**. facilitando sua evolução no jogo\n\n💎 **Uma forma rápida e eficiente de ficar mais forte e buscar os melhores atributos!**\n\n📦 **Quantidade final:** 2.000",
+            "user_name": "gustavo10082016",
+            "user_id": 936543097947578369,
+            "valor": 0.99,
+            "status": "Pagamento_pendente",
+            "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
+            "multiplicador": 1,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "gamepass_id": null,
+            "gamepass_validated_price": null,
+            "id": 44,
+            "created_at": "2026-05-01T14:28:42.953597+00:00"
         }
     ],
     "active_catalogs": [
