@@ -1755,7 +1755,7 @@
             "user_name": "hugo017578",
             "user_id": 1463643317626470535,
             "valor": 5.99,
-            "status": "Pagamento_pendente",
+            "status": "Confirmado",
             "entregavel": "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server",
             "multiplicador": 1,
             "robux_custom": false,
@@ -1765,7 +1765,12 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 42,
-            "created_at": "2026-05-01T03:19:43.393059+00:00"
+            "created_at": "2026-05-01T03:19:43.393059+00:00",
+            "thread_id": 1499611253901889576,
+            "reminder_target": "admin",
+            "admin_id": 1096979459892072648,
+            "claimed_at": "2026-05-01T03:30:39.665714+00:00",
+            "confirmed_at": "2026-05-01T03:36:41.099019+00:00"
         }
     ],
     "active_catalogs": [
