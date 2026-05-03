@@ -25,12 +25,12 @@
                 "balance": 0.5485
             },
             "1096979459892072648": {
-                "total_orders": 15,
-                "total_value": 85.72999999999998,
-                "completed": 15,
+                "total_orders": 16,
+                "total_value": 88.54999999999997,
+                "completed": 16,
                 "cancelled": 0,
                 "total_time": 0.0,
-                "balance": 4.2865
+                "balance": 4.4275
             },
             "1090769808863285408": {
                 "total_orders": 5,
@@ -2081,9 +2081,9 @@
             "status": "active",
             "clock_in": "2026-05-03T12:56:28.813227+00:00",
             "clock_out": null,
-            "period_orders": 0,
-            "period_value": 0.0,
-            "period_commission": 0.0
+            "period_orders": 1,
+            "period_value": 2.82,
+            "period_commission": 0.141
         },
         "1090769808863285408": {
             "status": "offline",
