@@ -2140,7 +2140,7 @@
             "user_name": "enzo.130",
             "user_id": 1498203167865700494,
             "valor": 7.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "Item #1: ⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
