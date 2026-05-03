@@ -204,10 +204,11 @@
             "descricao": "**Domine o gelo no Sailor Piece com um dos sets mais poderosos! 👀🔥**\n\n**💪 Alto dano e controle\n❄️ Habilidades congelantes devastadoras\n⚡ Perfeito para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**🧊 x1 Ice Core**\n**❄️ x4 Frozen Brand**\n**⚔️ x17 Battle Shard**\n**❄️ x9 Glacier Remnant**\n**💎 x25 Frost Relic**\n\n**🔥 F MOVE (UPGRADE):**\n\n**🧊 x2 Ice Core**\n**🧊 x10 Frozen Brand**\n**💎 x85 Frost Relic**\n\n**🔥 Fique forte rápido e congele seus inimigos!**",
             "valor": 7.99,
             "deliverables": [
-                "Item #1: ⏱️ Aguarde um membro da equipe de vendas!"
+                "Item #1: ⏱️ Aguarde um membro da equipe de vendas!",
+                "Item #2: 📩 Envie seu nick para agilizar a entrega."
             ],
             "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492990352385114223/Esdeath_com_espada_congelante.png?ex=69dd571e&is=69dc059e&hm=5a95aa6b515366e4570ba012392206724e8e1725b384b53792bbfd1ab48297da&",
-            "infinito": true,
+            "infinito": false,
             "status": "disponivel",
             "categoria": "【🥋】｜sailor-sets",
             "id": 9,
