@@ -2167,7 +2167,7 @@
             "period_commission": 0.29950000000000004
         },
         "1096979459892072648": {
-            "status": "active",
+            "status": "paused",
             "clock_in": "2026-05-03T12:56:28.813227+00:00",
             "clock_out": null,
             "period_orders": 2,
