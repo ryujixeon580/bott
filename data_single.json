@@ -2152,6 +2152,25 @@
             "id": 59,
             "created_at": "2026-05-03T22:07:28.683935+00:00",
             "thread_id": 1500619840224886865
+        },
+        {
+            "produto_id": 6,
+            "produto_nome": "**🚀 Ascensão (1 → 10)**",
+            "produto_descricao": "**Evolua de forma RÁPIDA no Sailor Piece e alcance um novo nível de poder! 💪**\n\n**⚡ Progressão acelerada\n💎 Muito mais força em pouco tempo\n🚀 Fique forte sem perder horas farmando\n🔥 Vantagem enorme no mid/end game**\n\n**✨ O jeito mais rápido de ficar OP!**\n**❗ Itens inclusos:**\n\n**- x5 Void Fragment / x2 Limitless Ring\n- x7 Dismantle Fang / x5 Dark Ring\n- x4 Reiatsu Core / x1 Blood Ring\n- x2 Hog Fragment / x2 Atomic Core\n- x3 Blood Ring / x3 Flame Soul\n- x2 Cursed Flesh / x2 Infinity Essence\n- x2 Phantasm Core / x3 Slime Core\n- x2 Azure Heart / x2 Evolution Fragment\n- x2 Path Fragment / x3 Corrupt Crown**\n\n📦 **Quantidade final:** 1",
+            "user_name": "ryuji019",
+            "user_id": 487782683674411040,
+            "valor": 13.99,
+            "status": "Pagamento_pendente",
+            "entregavel": "aguarde um membro da equipe",
+            "multiplicador": 1,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "gamepass_id": null,
+            "gamepass_validated_price": null,
+            "id": 60,
+            "created_at": "2026-05-04T15:56:53.854928+00:00"
         }
     ],
     "active_catalogs": [
