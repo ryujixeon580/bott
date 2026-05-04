@@ -33,12 +33,12 @@
                 "balance": 4.9014999999999995
             },
             "1090769808863285408": {
-                "total_orders": 5,
-                "total_value": 97.53,
-                "completed": 5,
+                "total_orders": 6,
+                "total_value": 99.02,
+                "completed": 6,
                 "cancelled": 0,
                 "total_time": 0.0,
-                "balance": 4.876500000000001
+                "balance": 4.9510000000000005
             }
         },
         "withdraw_requests": [],
