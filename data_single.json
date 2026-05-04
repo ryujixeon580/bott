@@ -2220,7 +2220,7 @@
             "user_name": "cristianoronaldo01721",
             "user_id": 1482859129898012742,
             "valor": 1.49,
-            "status": "Pagamento_pendente",
+            "status": "Confirmado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
@@ -2230,7 +2230,11 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 63,
-            "created_at": "2026-05-04T20:18:10.615211+00:00"
+            "created_at": "2026-05-04T20:18:10.615211+00:00",
+            "thread_id": 1500954721958105340,
+            "admin_id": 1090769808863285408,
+            "claimed_at": "2026-05-04T20:34:53.525747+00:00",
+            "confirmed_at": "2026-05-04T20:34:55.487237+00:00"
         }
     ],
     "active_catalogs": [
