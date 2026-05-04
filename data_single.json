@@ -2200,7 +2200,7 @@
             "user_name": "deku_smash4",
             "user_id": 1131953323700912189,
             "valor": 3.99,
-            "status": "Pagamento_pendente",
+            "status": "Cancelado",
             "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
             "multiplicador": 1,
             "robux_custom": false,
@@ -2210,7 +2210,8 @@
             "gamepass_id": null,
             "gamepass_validated_price": null,
             "id": 62,
-            "created_at": "2026-05-04T20:03:50.846777+00:00"
+            "created_at": "2026-05-04T20:03:50.846777+00:00",
+            "thread_id": 1500951115498393761
         }
     ],
     "active_catalogs": [
