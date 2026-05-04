@@ -2212,6 +2212,25 @@
             "id": 62,
             "created_at": "2026-05-04T20:03:50.846777+00:00",
             "thread_id": 1500951115498393761
+        },
+        {
+            "produto_id": 77,
+            "produto_nome": "🧰| Mythical Chest x1.000",
+            "produto_descricao": "**🔥 Quer desbloquear recompensas ABSURDAS no Sailor Piece? 👀💀**\n\n**O MYTHICAL CHEST é para quem busca o topo — sorte. poder e itens extremamente raros em um só lugar!**\n\n**💎 Chance de obter recompensas MÍTICAS**\n**🌈 Drops raríssimos e exclusivos**\n**⚡ Ideal para players que querem se destacar**\n**🚀 Abra múltiplos baús e aumente suas chances de algo INSANO**\n\n**📦 ITENS INCLUSOS:**\n\n**🎁 x1.000 Mythical Chest**\n\n**🔥 Abra TODOS e descubra itens lendários além da imaginação!**\n\n📦 **Quantidade final:** 1.000",
+            "user_name": "cristianoronaldo01721",
+            "user_id": 1482859129898012742,
+            "valor": 1.49,
+            "status": "Pagamento_pendente",
+            "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
+            "multiplicador": 1,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "gamepass_id": null,
+            "gamepass_validated_price": null,
+            "id": 63,
+            "created_at": "2026-05-04T20:18:10.615211+00:00"
         }
     ],
     "active_catalogs": [
