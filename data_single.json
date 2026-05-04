@@ -2192,6 +2192,25 @@
             "id": 61,
             "created_at": "2026-05-04T16:25:47.452482+00:00",
             "thread_id": 1500896241079550044
+        },
+        {
+            "produto_id": 10,
+            "produto_nome": "**❄️ Esdeath**",
+            "produto_descricao": "**Domine o gelo no Sailor Piece com um dos sets mais poderosos! 👀🔥**\n\n**💪 Alto dano e controle\n❄️ Habilidades congelantes devastadoras\n⚡ Perfeito para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**🧊 x1 Ice Core**\n**❄️ x4 Frozen Brand**\n**⚔️ x17 Battle Shard**\n**❄️ x9 Glacier Remnant**\n**💎 x25 Frost Relic**\n\n**🔥 Fique forte rápido e congele seus inimigos!**",
+            "user_name": "deku_smash4",
+            "user_id": 1131953323700912189,
+            "valor": 3.99,
+            "status": "Pagamento_pendente",
+            "entregavel": "⏱️ Aguarde um membro da equipe de vendas!",
+            "multiplicador": 1,
+            "robux_custom": false,
+            "robux_liquido": null,
+            "robux_gamepass": null,
+            "gamepass_link": null,
+            "gamepass_id": null,
+            "gamepass_validated_price": null,
+            "id": 62,
+            "created_at": "2026-05-04T20:03:50.846777+00:00"
         }
     ],
     "active_catalogs": [
