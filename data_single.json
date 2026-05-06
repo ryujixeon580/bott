@@ -8,13 +8,12 @@
         "pix_cidade": "BRASIL",
         "quantidade_por_categoria": {
             "【🔷】｜sailor-itens": true,
-            "【🔷】｜Reliquias": true,
             "【🗂️】｜sailor-pacotes": true,
             "【🥋】｜sailor-sets": true,
             "【🎮】｜sailor-gamepass": true,
             "🥋 | Sets Sailor Piece": true,
-            "【🪙】｜robux": false,
-            "【🎲】｜itens-reroll": true
+            "💰｜Robux": false,
+            "🎲｜Itens-reroll": true
         },
         "admin_stats": {
             "487782683674411040": {
@@ -201,7 +200,7 @@
             "permite_quantidade": false,
             "variacoes": [
                 {
-                    "nome": "⚔️ Normal",
+                    "nome": "❄️ Normal",
                     "descricao": "Versão básica.",
                     "valor": 3.99,
                     "mais_vendido": false,
@@ -213,7 +212,7 @@
                     ]
                 },
                 {
-                    "nome": "🔥 + F Move",
+                    "nome": "❄️ + F Move",
                     "descricao": "Inclui o F Move.",
                     "valor": 7.99,
                     "mais_vendido": false,
@@ -225,7 +224,7 @@
                     ]
                 },
                 {
-                    "nome": "👑 + F + Título",
+                    "nome": "❄️ + F + Título",
                     "descricao": "Versão completa com F Move e título.",
                     "valor": 11.99,
                     "mais_vendido": true,
@@ -237,41 +236,7 @@
                     ]
                 }
             ]
-        },
-        {
-            "nome": "**❄️ Esdeath + F**",
-            "descricao": "**Domine o gelo no Sailor Piece com um dos sets mais poderosos! 👀🔥**\n\n**💪 Alto dano e controle\n❄️ Habilidades congelantes devastadoras\n⚡ Perfeito para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**🧊 x1 Ice Core**\n**❄️ x4 Frozen Brand**\n**⚔️ x17 Battle Shard**\n**❄️ x9 Glacier Remnant**\n**💎 x25 Frost Relic**\n\n**🔥 F MOVE (UPGRADE):**\n\n**🧊 x2 Ice Core**\n**🧊 x10 Frozen Brand**\n**💎 x85 Frost Relic**\n\n**🔥 Fique forte rápido e congele seus inimigos!**",
-            "valor": 7.99,
-            "deliverables": [
-                "Item #1: ⏱️ Aguarde um membro da equipe de vendas!",
-                "Item #2: 📩 Envie seu nick para agilizar a entrega.",
-                "Item #3: 🔗 Entre no servidor privado:",
-                "Item #4: https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492990352385114223/Esdeath_com_espada_congelante.png?ex=69dd571e&is=69dc059e&hm=5a95aa6b515366e4570ba012392206724e8e1725b384b53792bbfd1ab48297da&",
-            "infinito": true,
-            "status": "arquivado",
-            "categoria": "【🥋】｜sailor-sets",
-            "id": 9,
-            "permite_quantidade": false
-        },
-        {
-            "nome": "**❄️ Esdeath**",
-            "descricao": "**Domine o gelo no Sailor Piece com um dos sets mais poderosos! 👀🔥**\n\n**💪 Alto dano e controle\n❄️ Habilidades congelantes devastadoras\n⚡ Perfeito para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**🧊 x1 Ice Core**\n**❄️ x4 Frozen Brand**\n**⚔️ x17 Battle Shard**\n**❄️ x9 Glacier Remnant**\n**💎 x25 Frost Relic**\n\n**🔥 Fique forte rápido e congele seus inimigos!**",
-            "valor": 3.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492990352385114223/Esdeath_com_espada_congelante.png?ex=69dd571e&is=69dc059e&hm=5a95aa6b515366e4570ba012392206724e8e1725b384b53792bbfd1ab48297da&",
-            "infinito": true,
-            "status": "arquivado",
-            "categoria": "【🥋】｜sailor-sets",
-            "id": 10,
-            "permite_quantidade": false
-        },
+        },   
         {
             "nome": "🌙 Kokushibo",
             "descricao": "**Domine o poder da lua no Sailor Piece com um dos sets mais temidos! 👀🔥**\n\n**💪 Alto dano e pressão constante\n🌙 Habilidades rápidas e letais\n⚔️ Excelente para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**🌙 x1 Moon Crest\n🌙 x4 Crescent Shard\n✨ x9 Lunar Essence\n💀 x16 Demon Remnant\n🔱 x25 Upper Seal**",
@@ -290,7 +255,7 @@
             "permite_quantidade": false,
             "variacoes": [
                 {
-                    "nome": "⚔️ Normal",
+                    "nome": "🌙 Normal",
                     "descricao": "Versão básica.",
                     "valor": 3.99,
                     "mais_vendido": false,
@@ -302,7 +267,7 @@
                     ]
                 },
                 {
-                    "nome": "🔥 + F Move",
+                    "nome": "🌙 + F Move",
                     "descricao": "Inclui o F Move.",
                     "valor": 7.99,
                     "mais_vendido": false,
@@ -314,7 +279,7 @@
                     ]
                 },
                 {
-                    "nome": "👑 + F + Título",
+                    "nome": "🌙 + F + Título",
                     "descricao": "Versão completa com F Move e título.",
                     "valor": 11.99,
                     "mais_vendido": true,
@@ -326,41 +291,7 @@
                     ]
                 }
             ]
-        },
-        {
-            "nome": "**🌙 Kokushibo + F**",
-            "descricao": "**Domine o poder da lua no Sailor Piece com um dos sets mais temidos! 👀🔥**\n\n**💪 Alto dano e pressão constante\n🌙 Habilidades rápidas e letais\n⚔️ Excelente para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**🌙 x1 Moon Crest\n🌙 x4 Crescent Shard\n✨ x9 Lunar Essence\n💀 x16 Demon Remnant\n🔱 x25 Upper Seal**\n\n**🔥 F MOVE (UPGRADE):**\n\n**🌙 x2 Moon Crest\n🌙 x10 Crescent Shard\n🔱 x85 Upper Seal**",
-            "valor": 7.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492996230786187415/Kokushibu_em_chamas_ardentes.png?ex=69dd5c97&is=69dc0b17&hm=1c95ef9b0282a41c5ce57369f391419ce01d6c45f96ac666952bbca71822673f&",
-            "infinito": true,
-            "status": "arquivado",
-            "categoria": "【🥋】｜sailor-sets",
-            "id": 12,
-            "permite_quantidade": false
-        },
-        {
-            "nome": "**🌙 Kokushibo**",
-            "descricao": "**Domine o poder da lua no Sailor Piece com um dos sets mais temidos! 👀🔥**\n\n**💪 Alto dano e pressão constante\n🌙 Habilidades rápidas e letais\n⚔️ Excelente para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**🌙 x1 Moon Crest\n🌙 x4 Crescent Shard\n✨ x9 Lunar Essence\n💀 x16 Demon Remnant\n🔱 x25 Upper Seal**",
-            "valor": 3.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492996230786187415/Kokushibu_em_chamas_ardentes.png?ex=69dd5c97&is=69dc0b17&hm=1c95ef9b0282a41c5ce57369f391419ce01d6c45f96ac666952bbca71822673f&",
-            "infinito": true,
-            "status": "arquivado",
-            "categoria": "【🥋】｜sailor-sets",
-            "id": 13,
-            "permite_quantidade": false
-        },
+        },      
         {
             "nome": "⚫ Atomic",
             "descricao": "**Desperte um poder ABSURDO no Sailor Piece e domine tudo ao seu redor! 👀🔥**\n\n**💪 Dano massivo e explosivo\n⚫ Habilidades sombrias devastadoras\n⚡ Perfeito para PvP e farm avançado\n🚀 Poder instantâneo sem precisar farmar**\n\n**📦 ITENS INCLUSOS:**\n\n**⚫ x1 Atomic Omen\n✨ x3 Eminence Essence\n🌑 x9 Shadow Remnant\n🔮 x16 Magic Shard\n🌀 x80 Abyss Sigil**\n\n**🔥 Alcance o nível máximo de poder e simplesmente apague seus inimigos!**",
@@ -378,7 +309,7 @@
             "permite_quantidade": false,
             "variacoes": [
                 {
-                    "nome": "⚔️ Normal",
+                    "nome": "⚫ Normal",
                     "descricao": "Versão básica.",
                     "valor": 3.99,
                     "mais_vendido": false,
@@ -389,7 +320,7 @@
                     ]
                 },
                 {
-                    "nome": "🔥 + F Move",
+                    "nome": "⚫ + F Move",
                     "descricao": "Inclui o F Move.",
                     "valor": 7.99,
                     "mais_vendido": false,
@@ -401,7 +332,7 @@
                     ]
                 },
                 {
-                    "nome": "👑 + F + Título",
+                    "nome": "⚫ + F + Título",
                     "descricao": "Versão completa com F Move e título.",
                     "valor": 9.99,
                     "mais_vendido": true,
@@ -413,39 +344,6 @@
                     ]
                 }
             ]
-        },
-        {
-            "nome": "**⚫ Atomic + F**",
-            "descricao": "**Desperte um poder ABSURDO no Sailor Piece e domine tudo ao seu redor! 👀🔥**\n\n**💪 Dano massivo e explosivo\n⚫ Habilidades sombrias devastadoras\n⚡ Perfeito para PvP e farm avançado\n🚀 Poder instantâneo sem precisar farmar**\n\n**📦 ITENS INCLUSOS:**\n\n**⚫ x1 Atomic Omen\n✨ x3 Eminence Essence\n🌑 x9 Shadow Remnant\n🔮 x16 Magic Shard\n🌀 x80 Abyss Sigil**\n\n**🔥 F MOVE (UPGRADE):**\n\n**🗝️ x5 Tower Keys**\n**🌀 x20 Abyss Sigil**\n\n**🔥 Alcance o nível máximo de poder e simplesmente apague seus inimigos!**",
-            "valor": 7.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492998194102013983/Cid_Kagenou__o_poder_atomico.png?ex=69dd5e6c&is=69dc0cec&hm=7eccaf216cbb806d2d2e47dacf10cf870a5b418efde0a588a21bd61501cbc755&",
-            "infinito": false,
-            "status": "arquivado",
-            "categoria": "【🥋】｜sailor-sets",
-            "id": 15,
-            "permite_quantidade": false
-        },
-        {
-            "nome": "**⚫ Atomic**",
-            "descricao": "**Desperte um poder ABSURDO no Sailor Piece e domine tudo ao seu redor! 👀🔥**\n\n**💪 Dano massivo e explosivo\n⚫ Habilidades sombrias devastadoras\n⚡ Perfeito para PvP e farm avançado\n🚀 Poder instantâneo sem precisar farmar**\n\n**📦 ITENS INCLUSOS:**\n\n**⚫ x1 Atomic Omen\n✨ x3 Eminence Essence\n🌑 x9 Shadow Remnant\n🔮 x16 Magic Shard\n🌀 x80 Abyss Sigil**\n\n**🔥 Alcance o nível máximo de poder e simplesmente apague seus inimigos!**",
-            "valor": 3.99,
-            "deliverables": [
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1492998194102013983/Cid_Kagenou__o_poder_atomico.png?ex=69dd5e6c&is=69dc0cec&hm=7eccaf216cbb806d2d2e47dacf10cf870a5b418efde0a588a21bd61501cbc755&",
-            "infinito": false,
-            "status": "arquivado",
-            "categoria": "【🥋】｜sailor-sets",
-            "id": 16,
-            "permite_quantidade": false
         },
         {
             "nome": "**🌌 Caixas de Aura (x10)**",
@@ -482,7 +380,7 @@
             "permite_quantidade": true
         },
         {
-            "nome": "💰 | Robux Barato",
+            "nome": "💰 | Robux Plus",
             "descricao": ".",
             "valor": 0.049,
             "deliverables": [
@@ -494,7 +392,7 @@
             "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1497050303575625780/960px-Robux_2019_Logo_gold.svg.png?ex=69ed6dbe&is=69ec1c3e&hm=4026f2e3605abc7a416904e9422bd69f98bd916f8bd21724476581ef8dbf26f6&",
             "infinito": true,
             "status": "disponivel",
-            "categoria": "【🪙】｜robux",
+            "categoria": "💰｜Robux",
             "id": 23,
             "permite_quantidade": false
         },
@@ -528,7 +426,7 @@
             "imagem_url": "https://cdn.discordapp.com/attachments/1493415100432912436/1496792437484425338/content.png?ex=69eb2c16&is=69e9da96&hm=825c27846dbb2d35fe454a7a9d08e1c4ef8e16ca88c8ae756282c5588813b6cd&",
             "infinito": true,
             "status": "disponivel",
-            "categoria": "【🎲】｜itens-reroll",
+            "categoria": "🎲｜Itens-reroll",
             "id": 25,
             "permite_quantidade": true
         },
@@ -549,7 +447,7 @@
             "permite_quantidade": false,
             "variacoes": [
                 {
-                    "nome": "⚔️ Normal",
+                    "nome": "👑 Normal",
                     "descricao": "Versão básica.",
                     "valor": 3.99,
                     "mais_vendido": false,
@@ -560,7 +458,7 @@
                     ]
                 },
                 {
-                    "nome": "🔥 + F Move",
+                    "nome": "👑 + F Move",
                     "descricao": "Inclui o F Move.",
                     "valor": 7.99,
                     "mais_vendido": false,
@@ -586,72 +484,6 @@
             ]
         },
         {
-            "nome": "**👑 Gilgamesh + F**",
-            "descricao": "**Domine no Sailor Piece com um dos sets mais poderosos! 👀🔥**\n\n**💪 Alto dano e controle\n👑 Habilidades devastadoras\n⚡ Perfeito para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**👑x12 Throne Remnant**\n**🔆x6 Ancient Shard**\n**🏆x8 Golden Essence**\n**🟡x1 Phantasm Core**\n\n**🔥 F MOVE (UPGRADE):**\n\n**🗡️ x100 Broken Sword**\n**🏆 x5 Golden Essence**\n**🟡 x2 Phantasm Core**\n\n\n**🔥 Fique forte rápido e congele seus inimigos!**",
-            "valor": 7.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1493813398469873664/ChatGPT_Image_15_de_abr._de_2026_00_20_49.png?ex=69e055a3&is=69df0423&hm=4d6bcf6bea200645c3cf369d9950d2a7522ede235397a4f11a1aa5c3cff48fdd&",
-            "infinito": false,
-            "status": "arquivado",
-            "categoria": "【🥋】｜sailor-sets",
-            "id": 49,
-            "permite_quantidade": false
-        },
-        {
-            "nome": "**👑 Gilgamesh**",
-            "descricao": "**Domine no Sailor Piece com um dos sets mais poderosos! 👀🔥**\n\n**💪 Alto dano e controle\n👑 Habilidades devastadoras\n⚡ Perfeito para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**👑x12 Throne Remnant**\n**🔆x6 Ancient Shard**\n**🏆x8 Golden Essence**\n**🟡x1 Phantasm Core**\n\n\n\n**🔥 Fique forte rápido e congele seus inimigos!**",
-            "valor": 3.99,
-            "deliverables": [
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1493813398469873664/ChatGPT_Image_15_de_abr._de_2026_00_20_49.png?ex=69e055a3&is=69df0423&hm=4d6bcf6bea200645c3cf369d9950d2a7522ede235397a4f11a1aa5c3cff48fdd&",
-            "infinito": false,
-            "status": "arquivado",
-            "categoria": "【🥋】｜sailor-sets",
-            "id": 50,
-            "permite_quantidade": false
-        },
-        {
-            "nome": "**⭐ Dio + F + Título {Pity} (MAIS VENDIDO)**",
-            "descricao": "**Domine no Sailor Piece com um dos sets mais poderosos! 👀🔥**\n\n**💪 Alto dano e controle\n👑 Habilidades devastadoras\n⚡ Perfeito para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**👑x6 World Core**\n**🥇 x2 Vampire Omen**\n**🔆x12 Time Remnant**\n**🏆x20 Power Fragment**\n**🟡x80 Dominion Brand**\n\n**🔥 F MOVE (UPGRADE):**\n\n**🟡x15 Dominion Brand**\n\n**👑 TÍTULO (UPGRADE):**\n\n**🟡x155 Dominion Brand**\n\n\n**🔥 Fique forte rápido e congele seus inimigos!**",
-            "valor": 11.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1495455585855078701/ChatGPT_Image_19_de_abr._de_2026_13_06_20.png?ex=69e64f0b&is=69e4fd8b&hm=074e03e5ea12006b3a5e6248a2a088a31eed340f103f6133c8bbee8b7cbad6ed&",
-            "infinito": false,
-            "status": "disponivel",
-            "categoria": "【🥋】｜sailor-sets",
-            "id": 51,
-            "permite_quantidade": false
-        },
-        {
-            "nome": "**⭐ Dio + F**",
-            "descricao": "**Domine no Sailor Piece com um dos sets mais poderosos! 👀🔥**\n\n**💪 Alto dano e controle\n👑 Habilidades devastadoras\n⚡ Perfeito para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**👑x6 World Core**\n**🥇 x2 Vampire Omen**\n**🔆x12 Time Remnant**\n**🏆x20 Power Fragment**\n**🟡x80 Dominion Brand**\n\n**🔥 F MOVE (UPGRADE):**\n\n**🟡x15 Dominion Brand**\n\n\n**🔥 Fique forte rápido e congele seus inimigos!**",
-            "valor": 7.99,
-            "deliverables": [
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1495455585855078701/ChatGPT_Image_19_de_abr._de_2026_13_06_20.png?ex=69e64f0b&is=69e4fd8b&hm=074e03e5ea12006b3a5e6248a2a088a31eed340f103f6133c8bbee8b7cbad6ed&",
-            "infinito": false,
-            "status": "disponivel",
-            "categoria": "【🥋】｜sailor-sets",
-            "id": 52,
-            "permite_quantidade": false
-        },
-        {
             "nome": "**⭐ Dio**",
             "descricao": "**Domine no Sailor Piece com um dos sets mais poderosos! 👀🔥**\n\n**💪 Alto dano e controle\n👑 Habilidades devastadoras\n⚡ Perfeito para PvP e farm\n🚀 Poder instantâneo sem precisar farmar por horas**\n\n**📦 ITENS INCLUSOS:**\n\n**👑x6 World Core**\n**🥇 x2 Vampire Omen**\n**🔆x12 Time Remnant**\n**🏆x20 Power Fragment**\n**🟡x80 Dominion Brand**\n\n**🔥 Fique forte rápido e congele seus inimigos!**",
             "valor": 5.99,
@@ -662,6 +494,43 @@
             "categoria": "【🥋】｜sailor-sets",
             "id": 53,
             "permite_quantidade": false
+            "variacoes": [
+                {
+                    "nome": "⭐ Normal",
+                    "descricao": "Versão básica.",
+                    "valor": 3.99,
+                    "mais_vendido": false,
+                    "deliverables": [
+                        "📩 Envie seu nick para agilizar a entrega.",
+                        "🔗 Entre no servidor privado:",
+                        "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
+                    ]
+                },
+                {
+                    "nome": "⭐ + F Move",
+                    "descricao": "Inclui o F Move.",
+                    "valor": 7.99,
+                    "mais_vendido": false,
+                    "deliverables": [
+                        "⏱️ Aguarde um membro da equipe de vendas!",
+                        "📩 Envie seu nick para agilizar a entrega.",
+                        "🔗 Entre no servidor privado:",
+                        "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
+                    ]
+                },
+                {
+                    "nome": "⭐ + F + Título",
+                    "descricao": "Versão completa com F Move e título.",
+                    "valor": 11.99,
+                    "mais_vendido": true,
+                    "deliverables": [
+                        "⏱️ Aguarde um membro da equipe de vendas!",
+                        "📩 Envie seu nick para agilizar a entrega.",
+                        "🔗 Entre no servidor privado:",
+                        "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
+                    ]
+                }
+            ]
         },
         {
             "nome": "**💫 Garou Garantido**",
@@ -697,91 +566,6 @@
             "permite_quantidade": true
         },
         {
-            "nome": "**💎 Luck Relic (MAIS VENDIDO)**",
-            "descricao": "**💎 Aumente sua sorte no Sailor Piece!**\n\n🍀 Mais chance de itens raros\n🎁 Melhor drop em bosses e farm\n⚡ Essencial para evolução rápida\n🚀 Uma das melhores Relics do jogo",
-            "valor": 7.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1496755182078267582/image.png",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜Reliquias",
-            "id": 60,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**💥 Damage Relic**",
-            "descricao": "**💥 Aumente seu dano no Sailor Piece!**\n\n🔥 Mais dano em bosses e PvP\n⚡ Elimine inimigos mais rápido\n🚀 Essencial para builds fortes\n💪 Fique muito mais poderoso",
-            "valor": 9.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1496755182078267582/image.png",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜Reliquias",
-            "id": 61,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🎯 Critical Chance Relic**",
-            "descricao": "**🎯 Aumente sua chance de crítico!**\n\n⚡ Mais hits críticos\n🔥 Mais consistência no dano\n🚀 Ideal para builds avançadas",
-            "valor": 4.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1496755182078267582/image.png",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜Reliquias",
-            "id": 62,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**⚡ Critical Damage Relic**",
-            "descricao": "**⚡ Aumente o dano crítico!**\n\n💥 Críticos muito mais fortes\n🔥 Burst de dano elevado\n🚀 Perfeito para builds ofensivas",
-            "valor": 4.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1496755182078267582/image.png",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜Reliquias",
-            "id": 63,
-            "permite_quantidade": true
-        },
-        {
-            "nome": "**🔥 Kit Relic Completo (MAIS VENDIDO)**",
-            "descricao": "**🔥 Tenha TODAS as Relics essenciais!**\n\n💎 Luck Relic\n💥 Damage Relic\n🎯 Critical Chance Relic\n⚡ Critical Damage Relic\n\n⚡ Build completa instantaneamente\n🚀 Muito mais dano, sorte e eficiência\n💰 Melhor custo-benefício da loja",
-            "valor": 22.99,
-            "deliverables": [
-                "⏱️ Aguarde um membro da equipe de vendas!",
-                "📩 Envie seu nick para agilizar a entrega.",
-                "🔗 Entre no servidor privado:",
-                "https://www.roblox.com/share?code=f484943386a4dd42a4e1a80bf135eef6&type=Server"
-            ],
-            "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1496755182078267582/image.png",
-            "infinito": true,
-            "status": "disponivel",
-            "categoria": "【🔷】｜Reliquias",
-            "id": 64,
-            "permite_quantidade": true
-        },
-        {
             "nome": "🟫 | Bloodline Reroll  x500",
             "descricao": "Permite **trocar sua linha de sangue** no *Sailor Piece*, dando a chance de obter linhas sanguíneas com **bônus mais fortes e raros** 💥\n\n✨ Com ela, você pode melhorar sua build, ganhar **mais dano, sorte e vantagens no combate**, facilitando sua evolução no jogo\n\n💎 **Uma forma rápida e eficiente de ficar mais forte e buscar os melhores tipos sanguíneos!**",
             "valor": 4.99,
@@ -794,7 +578,7 @@
             "imagem_url": "https://cdn.discordapp.com/attachments/1493415100432912436/1496795781917835293/ChatGPT_Image_23_de_abr._de_2026_05_51_46.png?ex=69eb2f33&is=69e9ddb3&hm=ded3fcb99540bcd599c396a50c34995fe8adfb203c65d27402055cc7a2916b50&",
             "infinito": true,
             "status": "disponivel",
-            "categoria": "【🎲】｜itens-reroll",
+            "categoria": "🎲｜Itens-reroll",
             "permite_quantidade": true,
             "id": 65
         },
@@ -811,7 +595,7 @@
             "imagem_url": "https://cdn.discordapp.com/attachments/1493415100432912436/1496797993687322674/ChatGPT_Image_23_de_abr._de_2026_05_59_59.png?ex=69eb3142&is=69e9dfc2&hm=c7e17e6bad8eacbd392cdf609b14e5892fc753a439c2029fdc07805d80a5cda8&",
             "infinito": true,
             "status": "disponivel",
-            "categoria": "【🎲】｜itens-reroll",
+            "categoria": "🎲｜Itens-reroll",
             "permite_quantidade": true,
             "id": 66
         },
@@ -828,7 +612,7 @@
             "imagem_url": "https://cdn.discordapp.com/attachments/1493415100432912436/1496805372059582475/d4f03631-55d1-4f9b-9156-e2014a222cb0-removebg-preview.png?ex=69eb3821&is=69e9e6a1&hm=522cdd7841aafd1a9a5f8027d8b70814c3635c9b2cfbc7699d16437fb99a509d&",
             "infinito": true,
             "status": "disponivel",
-            "categoria": "【🎲】｜itens-reroll",
+            "categoria": "🎲｜Itens-reroll",
             "permite_quantidade": true,
             "id": 67
         },
@@ -845,7 +629,7 @@
             "imagem_url": "https://cdn.discordapp.com/attachments/1493415100432912436/1496805806476099644/38ea86c9-9efd-4e5e-a57a-a89157c03e13-removebg-preview.png?ex=69eb3889&is=69e9e709&hm=1bf8a0f3e2ffef67fff486598783a9bf8f78f345303e8c65b3ae708419b66071&",
             "infinito": true,
             "status": "disponivel",
-            "categoria": "【🎲】｜itens-reroll",
+            "categoria": "🎲｜Itens-reroll",
             "permite_quantidade": true,
             "id": 68
         },
@@ -862,7 +646,7 @@
             "imagem_url": "",
             "infinito": true,
             "status": "disponivel",
-            "categoria": "【🎲】｜itens-reroll",
+            "categoria": "🎲｜Itens-reroll",
             "permite_quantidade": true,
             "id": 69
         },
@@ -981,7 +765,7 @@
             "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1497050303575625780/960px-Robux_2019_Logo_gold.svg.png?ex=69ed6dbe&is=69ec1c3e&hm=4026f2e3605abc7a416904e9422bd69f98bd916f8bd21724476581ef8dbf26f6&",
             "infinito": true,
             "status": "disponivel",
-            "categoria": "【🪙】｜robux",
+            "categoria": "💰｜Robux",
             "permite_quantidade": false,
             "id": 76
         },
@@ -2470,25 +2254,18 @@
             ]
         },
         {
-            "message_id": 1496761252641247295,
-            "channel_id": 1496760988827910187,
-            "categories": [
-                "【🔷】｜Reliquias"
-            ]
-        },
-        {
             "message_id": 1497347431011192912,
             "channel_id": 1496777518470922372,
             "categories": [
                 "【🗂️】｜sailor-pacotes",
-                "【🎲】｜itens-reroll"
+                "🎲｜Itens-reroll"
             ]
         },
         {
             "message_id": 1497380410617892934,
             "channel_id": 1490622736559771678,
             "categories": [
-                "【🪙】｜robux"
+                "💰｜Robux"
             ]
         },
         {
@@ -2496,7 +2273,7 @@
             "channel_id": 1496734204396830831,
             "categories": [
                 "【🎮】｜sailor-gamepass",
-                "【🪙】｜robux"
+                "💰｜Robux"
             ]
         }
     ],
