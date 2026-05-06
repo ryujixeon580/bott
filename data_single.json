@@ -803,7 +803,9 @@
             "nome": "💰 | Robux Instataneo",
             "descricao": ".",
             "valor": 0.05,
-            "deliverables": [],
+            "deliverables": [
+                "Robux Entregue !!!"
+            ],
             "imagem_url": "https://cdn.discordapp.com/attachments/1490622736559771678/1497050303575625780/960px-Robux_2019_Logo_gold.svg.png?ex=69ed6dbe&is=69ec1c3e&hm=4026f2e3605abc7a416904e9422bd69f98bd916f8bd21724476581ef8dbf26f6&",
             "infinito": true,
             "status": "disponivel",
