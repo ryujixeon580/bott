@@ -2353,12 +2353,12 @@
     ],
     "attendance": {
         "487782683674411040": {
-            "status": "paused",
-            "clock_in": "2026-04-26T20:42:59.468949+00:00",
+            "status": "active",
+            "clock_in": "2026-05-06T13:47:52.114587+00:00",
             "clock_out": null,
-            "period_orders": 1,
-            "period_value": 5.99,
-            "period_commission": 0.29950000000000004
+            "period_orders": 0,
+            "period_value": 0.0,
+            "period_commission": 0.0
         },
         "1096979459892072648": {
             "status": "offline",
