@@ -1261,9 +1261,8 @@ class MultiCategoryCatalogView(discord.ui.View):
             for p in sorted(prods, key=lambda x: x['id'])[:25]:
                 stock_count = len(p.get('deliverables', []))
                 stock_display = "Infinito ♾️" if p.get('infinito') else f"{stock_count} un."
-                price_display = get_variation_price_text(p) if product_has_variations(p) else format_brl(p.get('valor', 0))
-                desc = f"{price_display} | 📦 {stock_display}"
-                options.append(discord.SelectOption(label=p['nome'][:100], value=str(p['id']), description=desc[:100], emoji="🛒"))
+                desc = f"{get_variation_price_text(p)} | 📦 {stock_display}"
+                options.append(discord.SelectOption(label=p['nome'], value=str(p['id']), description=desc, emoji="🛒"))
             if options:
                 select = discord.ui.Select(placeholder=f"📂 Escolha um produto de {cat} e efetue a compra.", min_values=1, max_values=1, options=options, custom_id=f"cat_sel_{cat}"[:100])
                 select.callback = self.select_callback
@@ -1299,16 +1298,15 @@ class MultiCategoryCatalogView(discord.ui.View):
                     description="Selecione abaixo a versão que deseja comprar.",
                     color=discord.Color.blurple()
                 )
-
                 for variation in variations[:5]:
-                    nome = variation.get("nome", "Opção")
-                    valor = variation.get("valor", variation.get("preco", 0))
-                    desc_var = variation.get("descricao", "")
-                    label = f"⭐ {nome}" if variation.get("mais_vendido") else str(nome)
-                    value = f"**{format_brl(valor)}**"
+                    nome = str(variation.get("nome", "Opção"))
+                    valor = variation.get("valor", 0)
+                    desc_var = str(variation.get("descricao", "")).strip()
+                    field_name = f"⭐ {nome}" if variation.get("mais_vendido") else nome
+                    field_value = f"**{format_brl(valor)}**"
                     if desc_var:
-                        value += f"\n{desc_var}"
-                    embed.add_field(name=label[:256], value=value[:1024], inline=False)
+                        field_value += f"\n{desc_var}"
+                    embed.add_field(name=field_name[:256], value=field_value[:1024], inline=False)
 
                 await interaction.followup.send(
                     embed=embed,
@@ -1477,6 +1475,7 @@ def get_progressive_discount(mult: int) -> int:
         return 8
     return min(8 + (mult - 5), 23)
 
+
 def format_brl(value) -> str:
     try:
         return f"R$ {float(value):.2f}".replace(".", ",")
@@ -1484,35 +1483,35 @@ def format_brl(value) -> str:
         return "R$ 0,00"
 
 
-def product_has_variations(product: dict) -> bool:
-    variations = product.get("variacoes") or product.get("opcoes_preco") or []
-    return isinstance(variations, list) and len(variations) > 0
-
-
 def get_product_variations(product: dict) -> list:
     variations = product.get("variacoes") or product.get("opcoes_preco") or []
     if not isinstance(variations, list):
         return []
+
     valid = []
     for item in variations[:5]:
         if not isinstance(item, dict):
             continue
         try:
-            valor = float(item.get("valor", item.get("preco", 0)))
+            value = float(item.get("valor", item.get("preco", 0)))
         except Exception:
-            valor = 0.0
-        if valor <= 0:
+            value = 0.0
+        if value <= 0:
             continue
-        copy_item = item.copy()
-        copy_item["valor"] = valor
-        valid.append(copy_item)
+        clean = item.copy()
+        clean["valor"] = value
+        valid.append(clean)
     return valid
+
+
+def product_has_variations(product: dict) -> bool:
+    return len(get_product_variations(product)) > 0
 
 
 def get_variation_price_text(product: dict) -> str:
     variations = get_product_variations(product)
     if variations:
-        prices = [float(v.get("valor", 0)) for v in variations if float(v.get("valor", 0)) > 0]
+        prices = [float(v.get("valor", 0)) for v in variations]
         if prices:
             return f"A partir de {format_brl(min(prices))}"
     return format_brl(product.get("valor", 0))
@@ -1523,11 +1522,10 @@ class ProductVariationView(discord.ui.View):
         super().__init__(timeout=120)
         self.bot = bot
         self.product_data = product_data
-        self.variations = get_product_variations(product_data)
 
-        for index, variation in enumerate(self.variations[:5]):
+        for index, variation in enumerate(get_product_variations(product_data)[:5]):
             nome = str(variation.get("nome", f"Opção {index + 1}"))
-            valor = float(variation.get("valor", variation.get("preco", 0)))
+            valor = float(variation.get("valor", 0))
             mais_vendido = bool(variation.get("mais_vendido", False))
 
             label = f"{nome} • {format_brl(valor)}"
@@ -1548,9 +1546,10 @@ class ProductVariationView(discord.ui.View):
 
     async def select_variation(self, interaction: discord.Interaction, variation: dict):
         product_copy = self.product_data.copy()
+
         variation_name = str(variation.get("nome", "Opção escolhida"))
         variation_desc = str(variation.get("descricao", "")).strip()
-        variation_value = float(variation.get("valor", variation.get("preco", 0)))
+        variation_value = float(variation.get("valor", 0))
 
         base_name = str(self.product_data.get("nome", "Produto"))
         product_copy["nome"] = f"{base_name} — {variation_name}"
