@@ -12,7 +12,6 @@
             "【🗂️】｜sailor-pacotes": true,
             "【🥋】｜sailor-sets": true,
             "【🎮】｜sailor-gamepass": true,
-            "【🎲】｜itens-reroll": true,
             "🥋 | Sets Sailor Piece": true,
             "【🪙】｜robux": false
         },
@@ -2354,7 +2353,7 @@
     ],
     "attendance": {
         "487782683674411040": {
-            "status": "active",
+            "status": "paused",
             "clock_in": "2026-05-06T13:47:52.114587+00:00",
             "clock_out": null,
             "period_orders": 0,
