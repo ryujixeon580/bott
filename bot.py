@@ -661,6 +661,113 @@ class AddDeliverableModal(discord.ui.Modal, title="Adicionar Entregável"):
     async def on_submit(self, interaction: discord.Interaction):
         await self.parent_view.add_deliverable_callback(interaction, self.content.value)
 
+
+class ProductVariationsModal(discord.ui.Modal, title="Configurar Variações"):
+    """Modal simples para editar 3 variações direto no /estoque.
+
+    Formato de cada linha:
+    Nome | Preço | Descrição | mais_vendido | desconto%
+    Exemplo:
+    Normal | 3.99 | Versão básica | nao | 0
+    + F Move | 7.99 | Inclui F Move | nao | 0
+    + F + Título | 11.99 | Completo | sim | 20
+    """
+    def __init__(self, bot, stock_view, product):
+        super().__init__()
+        self.bot = bot
+        self.stock_view = stock_view
+        self.product = product
+        existing = product.get("variacoes", []) or []
+        lines = []
+        for v in existing[:5]:
+            nome = v.get("nome", "")
+            valor = str(v.get("valor", "0"))
+            desc = v.get("descricao", "")
+            mv = "sim" if v.get("mais_vendido") else "nao"
+            off = str(v.get("desconto_percentual", 0))
+            lines.append(f"{nome} | {valor} | {desc} | {mv} | {off}")
+        default = "\n".join(lines) if lines else "Normal | 3.99 | Versão básica | nao | 0\n+ F Move | 7.99 | Inclui F Move | nao | 0\n+ F + Título | 11.99 | Versão completa | sim | 0"
+        self.variacoes = discord.ui.TextInput(
+            label="Variações (1 por linha)",
+            style=discord.TextStyle.paragraph,
+            default=default,
+            required=True,
+            max_length=1800,
+            placeholder="Nome | Preço | Descrição | mais_vendido | desconto%"
+        )
+        self.add_item(self.variacoes)
+
+    async def on_submit(self, interaction: discord.Interaction):
+        await interaction.response.defer(ephemeral=True)
+        try:
+            parsed = []
+            for raw in str(self.variacoes.value).splitlines():
+                raw = raw.strip()
+                if not raw:
+                    continue
+                parts = [x.strip() for x in raw.split("|")]
+                if len(parts) < 2:
+                    continue
+                nome = parts[0]
+                valor = float(parts[1].replace("R$", "").replace(",", ".").strip())
+                desc = parts[2] if len(parts) >= 3 else ""
+                mais_vendido = False
+                if len(parts) >= 4:
+                    mais_vendido = parts[3].lower() in ["sim", "s", "yes", "y", "true", "1", "mais vendido", "mv"]
+                desconto_percentual = 0
+                if len(parts) >= 5 and parts[4]:
+                    desconto_percentual = int(float(parts[4].replace("%", "").replace(",", ".")))
+                parsed.append({
+                    "nome": nome,
+                    "descricao": desc,
+                    "valor": round(valor, 2),
+                    "mais_vendido": mais_vendido,
+                    "desconto_percentual": max(0, min(desconto_percentual, 95))
+                })
+            if not parsed:
+                return await interaction.followup.send("❌ Nenhuma variação válida encontrada. Use: Nome | Preço | Descrição", ephemeral=True)
+            await db.update_product(self.product["id"], {"variacoes": parsed})
+            await update_catalog_display(self.bot)
+            await self.stock_view.reload_data()
+            self.stock_view.filtered_products = [p for p in self.stock_view.products if p.get("categoria", "Geral") == self.stock_view.current_category]
+            self.stock_view.update_components()
+            await interaction.edit_original_response(view=self.stock_view)
+            await interaction.followup.send(f"✅ {len(parsed)} variação(ões) salva(s) nesse produto.", ephemeral=True)
+        except Exception as e:
+            await interaction.followup.send(f"❌ Erro ao salvar variações: {e}", ephemeral=True)
+
+
+def format_brl(value) -> str:
+    try:
+        return f"R$ {float(value):.2f}".replace(".", ",")
+    except Exception:
+        return "R$ 0,00"
+
+
+def has_variations(product: dict) -> bool:
+    return bool(product.get("variacoes"))
+
+
+def make_variation_product(product: dict, variation: dict) -> dict:
+    product_copy = copy.deepcopy(product)
+    product_copy["variacao_nome"] = variation.get("nome", "Opção")
+    product_copy["variacao_descricao"] = variation.get("descricao", "")
+    product_copy["variacao_mais_vendido"] = bool(variation.get("mais_vendido"))
+    product_copy["desconto_visual"] = int(variation.get("desconto_percentual", 0) or 0)
+    product_copy["valor_original"] = product.get("valor", variation.get("valor", 0))
+    product_copy["valor"] = float(variation.get("valor", product.get("valor", 0)) or 0)
+    product_copy["nome"] = f"{product.get('nome', 'Produto')} — {variation.get('nome', 'Opção')}"
+    if variation.get("deliverables"):
+        product_copy["deliverables"] = variation.get("deliverables")
+    base_desc = product.get("descricao", "")
+    extra = f"\n\n🎚️ **Variação escolhida:** {variation.get('nome', 'Opção')}"
+    if variation.get("descricao"):
+        extra += f"\n📝 {variation.get('descricao')}"
+    if variation.get("mais_vendido"):
+        extra += "\n⭐ **Mais vendido**"
+    product_copy["descricao"] = f"{base_desc}{extra}"
+    return product_copy
+
 # --- VIEW SEM PERMISSÃO ---
 class NoPermissionView(discord.ui.LayoutView):
     def __init__(self):
@@ -733,6 +840,21 @@ class StockManagerLayout(discord.ui.LayoutView):
         container1.add_item(discord.ui.Section(discord.ui.TextDisplay(content=f"📝 {desc_trunc}"), accessory=discord.ui.Button(style=discord.ButtonStyle.primary, label="Editar Desc.", emoji="✏️", custom_id="edit_desc")))
         container1.add_item(discord.ui.Separator(visible=True, spacing=discord.SeparatorSpacing.small))
         container1.add_item(discord.ui.Section(discord.ui.TextDisplay(content=f"💰 **R$ {product.get('valor', 0.0):.2f}**"), accessory=discord.ui.Button(style=discord.ButtonStyle.primary, label="Editar Preço", emoji="💲", custom_id="edit_price")))
+        container1.add_item(discord.ui.Separator(visible=True, spacing=discord.SeparatorSpacing.small))
+        variacoes = product.get("variacoes", []) or []
+        if variacoes:
+            var_lines = []
+            for idx, v in enumerate(variacoes[:5], 1):
+                badge = " ⭐ MAIS VENDIDO" if v.get("mais_vendido") else ""
+                off = f" • {v.get('desconto_percentual')}% OFF" if v.get("desconto_percentual") else ""
+                var_lines.append(f"{idx}. **{v.get('nome', 'Opção')}** — {format_brl(v.get('valor', 0))}{badge}{off}")
+            var_text = "### 🎚️ Variações do Produto\n" + "\n".join(var_lines)
+        else:
+            var_text = "### 🎚️ Variações do Produto\nNenhuma variação configurada. O produto compra direto."
+        container1.add_item(discord.ui.TextDisplay(content=var_text))
+        btn_vars = discord.ui.Button(style=discord.ButtonStyle.primary, label="Editar Variações", emoji="🎚️", custom_id="btn_edit_variations")
+        btn_clear_vars = discord.ui.Button(style=discord.ButtonStyle.danger, label="Remover Variações", emoji="🗑️", custom_id="btn_clear_variations", disabled=(not variacoes))
+        container1.add_item(discord.ui.ActionRow(btn_vars, btn_clear_vars))
         container1.add_item(discord.ui.Separator(visible=True, spacing=discord.SeparatorSpacing.small))
         is_infinite = product.get('infinito', False)
         opt_infinite = discord.SelectOption(label="Infinito ♾️", value="inf", default=is_infinite, description="Estoque não acaba")
@@ -860,6 +982,23 @@ class StockManagerLayout(discord.ui.LayoutView):
                     self.update_components()
                 except IndexError: pass
             await interaction.edit_original_response(view=self)
+            return False
+        if custom_id == "btn_edit_variations":
+            p = self.get_current_product()
+            if p:
+                await interaction.response.send_modal(ProductVariationsModal(self.bot, self, p))
+            return False
+        if custom_id == "btn_clear_variations":
+            await interaction.response.defer(ephemeral=True)
+            p = self.get_current_product()
+            if p:
+                await db.update_product(self.current_product_id, {"variacoes": []})
+                await update_catalog_display(self.bot)
+                await self.reload_data()
+                self.filtered_products = [p for p in self.products if p.get("categoria", "Geral") == self.current_category]
+                self.update_components()
+                await interaction.edit_original_response(view=self)
+                await interaction.followup.send("✅ Variações removidas. O produto voltou a comprar direto.", ephemeral=True)
             return False
         if custom_id == "select_stock_type":
             await interaction.response.defer()
@@ -1261,7 +1400,7 @@ class MultiCategoryCatalogView(discord.ui.View):
             for p in sorted(prods, key=lambda x: x['id'])[:25]:
                 stock_count = len(p.get('deliverables', []))
                 stock_display = "Infinito ♾️" if p.get('infinito') else f"{stock_count} un."
-                desc = f"{get_variation_price_text(p)} | 📦 {stock_display}"
+                desc = f"R$ {p['valor']:.2f} | 📦 {stock_display}"
                 options.append(discord.SelectOption(label=p['nome'], value=str(p['id']), description=desc, emoji="🛒"))
             if options:
                 select = discord.ui.Select(placeholder=f"📂 Escolha um produto de {cat} e efetue a compra.", min_values=1, max_values=1, options=options, custom_id=f"cat_sel_{cat}"[:100])
@@ -1285,32 +1424,13 @@ class MultiCategoryCatalogView(discord.ui.View):
             new_view = MultiCategoryCatalogView(all_prods, self.bot, self.categories)
             await interaction.edit_original_response(view=new_view)
 
-            if product_has_variations(product_data):
-                variations = get_product_variations(product_data)
-                if not variations:
-                    return await interaction.followup.send(
-                        embed=create_error_embed("Erro", "Este produto tem variações, mas nenhuma opção válida foi encontrada."),
-                        ephemeral=True
-                    )
-
-                embed = discord.Embed(
-                    title=f"🛒 Escolha uma opção — {product_data.get('nome', 'Produto')}",
-                    description="Selecione abaixo a versão que deseja comprar.",
-                    color=discord.Color.blurple()
-                )
-                for variation in variations[:5]:
-                    nome = str(variation.get("nome", "Opção"))
-                    valor = variation.get("valor", 0)
-                    desc_var = str(variation.get("descricao", "")).strip()
-                    field_name = f"⭐ {nome}" if variation.get("mais_vendido") else nome
-                    field_value = f"**{format_brl(valor)}**"
-                    if desc_var:
-                        field_value += f"\n{desc_var}"
-                    embed.add_field(name=field_name[:256], value=field_value[:1024], inline=False)
-
+            if has_variations(product_data):
+                view = ProductVariationView(self.bot, product_data)
+                embed = view.build_embed()
                 await interaction.followup.send(
+                    content="🎚️ Escolha uma opção para continuar:",
                     embed=embed,
-                    view=ProductVariationView(self.bot, product_data),
+                    view=view,
                     ephemeral=True
                 )
             elif await product_allows_quantity(product_data):
@@ -1476,105 +1596,6 @@ def get_progressive_discount(mult: int) -> int:
     return min(8 + (mult - 5), 23)
 
 
-def format_brl(value) -> str:
-    try:
-        return f"R$ {float(value):.2f}".replace(".", ",")
-    except Exception:
-        return "R$ 0,00"
-
-
-def get_product_variations(product: dict) -> list:
-    variations = product.get("variacoes") or product.get("opcoes_preco") or []
-    if not isinstance(variations, list):
-        return []
-
-    valid = []
-    for item in variations[:5]:
-        if not isinstance(item, dict):
-            continue
-        try:
-            value = float(item.get("valor", item.get("preco", 0)))
-        except Exception:
-            value = 0.0
-        if value <= 0:
-            continue
-        clean = item.copy()
-        clean["valor"] = value
-        valid.append(clean)
-    return valid
-
-
-def product_has_variations(product: dict) -> bool:
-    return len(get_product_variations(product)) > 0
-
-
-def get_variation_price_text(product: dict) -> str:
-    variations = get_product_variations(product)
-    if variations:
-        prices = [float(v.get("valor", 0)) for v in variations]
-        if prices:
-            return f"A partir de {format_brl(min(prices))}"
-    return format_brl(product.get("valor", 0))
-
-
-class ProductVariationView(discord.ui.View):
-    def __init__(self, bot, product_data):
-        super().__init__(timeout=120)
-        self.bot = bot
-        self.product_data = product_data
-
-        for index, variation in enumerate(get_product_variations(product_data)[:5]):
-            nome = str(variation.get("nome", f"Opção {index + 1}"))
-            valor = float(variation.get("valor", 0))
-            mais_vendido = bool(variation.get("mais_vendido", False))
-
-            label = f"{nome} • {format_brl(valor)}"
-            if mais_vendido and "MAIS VENDIDO" not in label.upper():
-                label = f"⭐ {label}"
-
-            button = discord.ui.Button(
-                label=label[:80],
-                style=discord.ButtonStyle.success if mais_vendido else discord.ButtonStyle.primary,
-                custom_id=f"variation_{product_data.get('id', 'p')}_{index}"
-            )
-
-            async def callback(interaction: discord.Interaction, selected_variation=variation):
-                await self.select_variation(interaction, selected_variation)
-
-            button.callback = callback
-            self.add_item(button)
-
-    async def select_variation(self, interaction: discord.Interaction, variation: dict):
-        product_copy = self.product_data.copy()
-
-        variation_name = str(variation.get("nome", "Opção escolhida"))
-        variation_desc = str(variation.get("descricao", "")).strip()
-        variation_value = float(variation.get("valor", 0))
-
-        base_name = str(self.product_data.get("nome", "Produto"))
-        product_copy["nome"] = f"{base_name} — {variation_name}"
-        product_copy["valor"] = round(variation_value, 2)
-        product_copy["multiplicador"] = 1
-        product_copy["variacao_nome"] = variation_name
-        product_copy["variacao_valor"] = round(variation_value, 2)
-
-        if variation.get("imagem_url"):
-            product_copy["imagem_url"] = variation.get("imagem_url")
-
-        if isinstance(variation.get("deliverables"), list) and variation.get("deliverables"):
-            product_copy["deliverables"] = variation.get("deliverables")
-        elif variation.get("entregavel"):
-            product_copy["entregavel_custom"] = str(variation.get("entregavel"))
-
-        base_desc = str(self.product_data.get("descricao", "")).strip()
-        extra = f"**Opção escolhida:** {variation_name}\n**Valor:** {format_brl(variation_value)}"
-        if variation_desc:
-            extra += f"\n**Detalhes:** {variation_desc}"
-        product_copy["descricao"] = f"{base_desc}\n\n{extra}" if base_desc else extra
-
-        await handle_purchase(interaction, product_copy, self.bot)
-
-
 class ConfirmQuantityView(discord.ui.View):
     def __init__(self, bot, product, multiplier, final_price, subtotal, discount_percent, final_amount):
         super().__init__(timeout=60)
@@ -1620,6 +1641,61 @@ class ConfirmQuantityView(discord.ui.View):
         )
 
 
+class ProductVariationView(discord.ui.View):
+    def __init__(self, bot, product):
+        super().__init__(timeout=90)
+        self.bot = bot
+        self.product = product
+        self.variacoes = list(product.get("variacoes", []) or [])[:5]
+
+        for idx, variation in enumerate(self.variacoes):
+            nome = str(variation.get("nome", f"Opção {idx+1}"))
+            valor = float(variation.get("valor", product.get("valor", 0)) or 0)
+            label = f"{nome} • {format_brl(valor)}"
+            if variation.get("mais_vendido"):
+                label = f"⭐ {label}"
+            style = discord.ButtonStyle.success if variation.get("mais_vendido") else discord.ButtonStyle.primary
+            button = discord.ui.Button(label=label[:80], style=style, custom_id=f"var_{product.get('id')}_{idx}")
+            async def callback(interaction: discord.Interaction, v=variation):
+                await self.select_variation(interaction, v)
+            button.callback = callback
+            self.add_item(button)
+
+    def build_embed(self):
+        embed = discord.Embed(
+            title=f"💎 {self.product.get('nome', 'Produto')}",
+            description="Escolha a versão que deseja comprar.",
+            color=discord.Color.gold()
+        )
+        for idx, v in enumerate(self.variacoes, 1):
+            badge = "\n⭐ **MAIS VENDIDO**" if v.get("mais_vendido") else ""
+            off = f"\n📉 **Desconto visual:** {v.get('desconto_percentual')}% OFF" if v.get("desconto_percentual") else ""
+            desc = v.get("descricao") or "Sem descrição extra."
+            embed.add_field(
+                name=f"{idx}. {v.get('nome', 'Opção')} — {format_brl(v.get('valor', 0))}",
+                value=f"{desc}{badge}{off}",
+                inline=False
+            )
+        img = self.product.get("imagem_url")
+        if img:
+            embed.set_thumbnail(url=img)
+        embed.set_footer(text="Após escolher a variação, o bot continua para quantidade ou pagamento.")
+        return embed
+
+    async def select_variation(self, interaction: discord.Interaction, variation: dict):
+        product_copy = make_variation_product(self.product, variation)
+        if await product_allows_quantity(product_copy):
+            view = QuantitySelectView(self.bot, product_copy)
+            await interaction.response.edit_message(
+                content=f"✅ Opção escolhida: **{variation.get('nome', 'Opção')}**\n\n🛒 Agora escolha a quantidade:",
+                embed=None,
+                view=view
+            )
+        else:
+            await interaction.response.defer(ephemeral=True, thinking=True)
+            await handle_purchase(interaction, product_copy, self.bot)
+
+
 class QuantitySelectView(discord.ui.View):
     def __init__(self, bot, product):
         super().__init__(timeout=60)
@@ -1659,11 +1735,15 @@ class QuantitySelectView(discord.ui.View):
             stock_count = len(self.product.get("deliverables", []))
             stock_text = f"📦 Estoque atual: {stock_count}"
 
+        premium_badge = " ⭐ MAIS VENDIDO" if self.product.get("variacao_mais_vendido") else ""
+        desconto_visual = self.product.get("desconto_visual", 0)
         embed = discord.Embed(
-            title="🛒 Confirmar compra",
+            title=f"💎 Confirmar compra{premium_badge}",
             description=f"Você está prestes a comprar **{self.product['nome']}**",
-            color=discord.Color.blurple()
+            color=discord.Color.gold() if self.product.get("variacao_mais_vendido") else discord.Color.blurple()
         )
+        if desconto_visual:
+            embed.add_field(name="Oferta", value=f"📉 **{desconto_visual}% OFF**", inline=True)
         embed.add_field(name="Quantidade escolhida", value=f"**{mult}x**", inline=True)
         embed.add_field(name="Você vai receber", value=f"**{final_amount:,}**".replace(",", "."), inline=True)
         embed.add_field(name="Desconto", value="**Sem desconto**" if discount == 0 else f"**{discount}% de desconto**", inline=True)
