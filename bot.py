@@ -1517,6 +1517,320 @@ def get_variation_price_text(product: dict) -> str:
     return format_brl(product.get("valor", 0))
 
 
+def normalize_coupon_code(code: str) -> str:
+    return re.sub(r"[^A-Z0-9_-]", "", str(code or "").strip().upper())[:32]
+
+
+def get_coupon_categories_map(coupon: dict) -> dict:
+    cats = coupon.get("categories") or coupon.get("categorias") or {}
+    if isinstance(cats, list):
+        return {str(c): True for c in cats}
+    if isinstance(cats, dict):
+        return {str(k): bool(v) for k, v in cats.items()}
+    return {}
+
+
+async def validate_coupon_for_product(code: str, product: dict, user_id: int):
+    code = normalize_coupon_code(code)
+    if not code:
+        return None, "Digite um cupom válido."
+
+    config = await db.get_config()
+    coupons = config.get("coupons", {})
+    coupon = coupons.get(code)
+    if not coupon:
+        return None, "Cupom não encontrado."
+
+    if not bool(coupon.get("active", coupon.get("ativo", True))):
+        return None, "Esse cupom está desativado."
+
+    try:
+        percent = float(coupon.get("discount_percent", coupon.get("desconto_percentual", coupon.get("percent", 0))))
+    except Exception:
+        percent = 0
+
+    if percent <= 0 or percent > 95:
+        return None, "Esse cupom está com desconto inválido."
+
+    product_category = str(product.get("categoria", "Geral"))
+    categories_map = get_coupon_categories_map(coupon)
+    # Se o cupom tem mapa de categorias, a categoria precisa estar true.
+    # Se o mapa estiver vazio, o cupom vale para todas as categorias.
+    if categories_map and not categories_map.get(product_category, False):
+        return None, f"Esse cupom não funciona na categoria: {product_category}"
+
+    max_uses = int(coupon.get("max_uses", coupon.get("limite_usos", 0)) or 0)
+    uses = int(coupon.get("uses", coupon.get("usos", 0)) or 0)
+    if max_uses > 0 and uses >= max_uses:
+        return None, "Esse cupom atingiu o limite de usos."
+
+    used_by = [str(x) for x in coupon.get("used_by", coupon.get("usado_por", []))]
+    per_user_once = bool(coupon.get("per_user_once", coupon.get("uso_unico_por_usuario", True)))
+    if per_user_once and str(user_id) in used_by:
+        return None, "Você já usou esse cupom."
+
+    normalized = coupon.copy()
+    normalized["code"] = code
+    normalized["discount_percent"] = percent
+    normalized["categories"] = categories_map
+    return normalized, None
+
+
+async def register_coupon_use(code: str, user_id: int):
+    code = normalize_coupon_code(code)
+    if not code:
+        return
+    async with db._lock:
+        cfg = db._db_cache.setdefault("config", {})
+        coupons = cfg.setdefault("coupons", {})
+        coupon = coupons.get(code)
+        if not coupon:
+            return
+        coupon["uses"] = int(coupon.get("uses", coupon.get("usos", 0)) or 0) + 1
+        used_by = coupon.setdefault("used_by", coupon.get("usado_por", []))
+        if str(user_id) not in [str(x) for x in used_by]:
+            used_by.append(str(user_id))
+        db._dirty = True
+    await db.force_save()
+
+
+async def send_coupon_checkout_prompt(interaction: discord.Interaction, product: dict, bot):
+    original_value = float(product.get("valor", 0))
+    embed = discord.Embed(
+        title="🎟️ Cupom de desconto",
+        description=(
+            f"Produto: **{product.get('nome', 'Produto')}**\n"
+            f"Categoria: `{product.get('categoria', 'Geral')}`\n"
+            f"Valor atual: **{format_brl(original_value)}**\n\n"
+            "Você pode aplicar um cupom agora ou continuar sem cupom. "
+            "O tópico do pedido só será criado depois dessa etapa."
+        ),
+        color=discord.Color.gold()
+    )
+    view = CouponCheckoutView(bot, product)
+    if interaction.response.is_done():
+        await interaction.followup.send(embed=embed, view=view, ephemeral=True)
+    else:
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+
+
+class CouponCheckoutView(discord.ui.View):
+    def __init__(self, bot, product):
+        super().__init__(timeout=120)
+        self.bot = bot
+        self.product = product
+
+    @discord.ui.button(label="Aplicar cupom", style=discord.ButtonStyle.success, emoji="🎟️")
+    async def apply_coupon_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_modal(ApplyCouponModal(self.bot, self.product))
+
+    @discord.ui.button(label="Continuar sem cupom", style=discord.ButtonStyle.secondary, emoji="➡️")
+    async def continue_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+        product_copy = self.product.copy()
+        product_copy["_coupon_checked"] = True
+        product_copy["coupon_code"] = None
+        await handle_purchase(interaction, product_copy, self.bot)
+
+    @discord.ui.button(label="Cancelar", style=discord.ButtonStyle.danger, emoji="✖️")
+    async def cancel_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(content="❌ Compra cancelada.", embed=None, view=None)
+
+
+class ApplyCouponModal(discord.ui.Modal, title="Aplicar cupom"):
+    def __init__(self, bot, product):
+        super().__init__()
+        self.bot = bot
+        self.product = product
+        self.code = discord.ui.TextInput(
+            label="Código do cupom",
+            placeholder="Ex: RYU10",
+            required=True,
+            max_length=32
+        )
+        self.add_item(self.code)
+
+    async def on_submit(self, interaction: discord.Interaction):
+        coupon, error = await validate_coupon_for_product(self.code.value, self.product, interaction.user.id)
+        if error:
+            return await interaction.response.send_message(f"❌ {error}", ephemeral=True)
+
+        original_value = float(self.product.get("valor", 0))
+        percent = float(coupon.get("discount_percent", 0))
+        discount_value = round(original_value * (percent / 100), 2)
+        final_value = max(round(original_value - discount_value, 2), 0.01)
+
+        product_copy = self.product.copy()
+        product_copy["_coupon_checked"] = True
+        product_copy["coupon_code"] = coupon["code"]
+        product_copy["coupon_discount_percent"] = percent
+        product_copy["coupon_discount_value"] = discount_value
+        product_copy["coupon_original_value"] = original_value
+        product_copy["valor"] = final_value
+
+        base_desc = str(product_copy.get("descricao", "")).strip()
+        coupon_line = (
+            f"🎟️ **Cupom aplicado:** `{coupon['code']}`\n"
+            f"📉 **Desconto:** {percent:.0f}% (-{format_brl(discount_value)})\n"
+            f"💰 **Valor final:** {format_brl(final_value)}"
+        )
+        product_copy["descricao"] = f"{base_desc}\n\n{coupon_line}" if base_desc else coupon_line
+
+        await handle_purchase(interaction, product_copy, self.bot)
+
+
+class CouponCreateEditModal(discord.ui.Modal, title="Criar/editar cupom"):
+    def __init__(self, bot):
+        super().__init__()
+        self.bot = bot
+        self.code = discord.ui.TextInput(label="Código", placeholder="Ex: RYU10", max_length=32)
+        self.percent = discord.ui.TextInput(label="Desconto em %", placeholder="Ex: 10", max_length=5)
+        self.max_uses = discord.ui.TextInput(label="Limite de usos", placeholder="0 = ilimitado", default="0", required=False, max_length=6)
+        self.active = discord.ui.TextInput(label="Ativo?", placeholder="true ou false", default="true", max_length=5)
+        self.once = discord.ui.TextInput(label="1 uso por usuário?", placeholder="true ou false", default="true", max_length=5)
+        for item in [self.code, self.percent, self.max_uses, self.active, self.once]:
+            self.add_item(item)
+
+    async def on_submit(self, interaction: discord.Interaction):
+        code = normalize_coupon_code(self.code.value)
+        if not code:
+            return await interaction.response.send_message("❌ Código inválido.", ephemeral=True)
+        try:
+            percent = float(str(self.percent.value).replace(",", "."))
+        except Exception:
+            return await interaction.response.send_message("❌ Desconto inválido.", ephemeral=True)
+        if percent <= 0 or percent > 95:
+            return await interaction.response.send_message("❌ Use um desconto entre 1 e 95%.", ephemeral=True)
+        try:
+            max_uses = int(str(self.max_uses.value or "0").strip())
+        except Exception:
+            max_uses = 0
+        active = str(self.active.value).strip().lower() in ("true", "sim", "s", "1", "yes")
+        once = str(self.once.value).strip().lower() in ("true", "sim", "s", "1", "yes")
+
+        products = await db.get_products(exclude_status=[StockStatus.ARCHIVED.value])
+        categories = sorted(set(str(p.get("categoria", "Geral")) for p in products))[:25]
+
+        async with db._lock:
+            cfg = db._db_cache.setdefault("config", {})
+            coupons = cfg.setdefault("coupons", {})
+            existing = coupons.get(code, {})
+            existing_categories = get_coupon_categories_map(existing)
+            coupons[code] = {
+                "active": active,
+                "discount_percent": percent,
+                "max_uses": max_uses,
+                "uses": int(existing.get("uses", 0) or 0),
+                "per_user_once": once,
+                "used_by": existing.get("used_by", []),
+                "categories": existing_categories or {cat: True for cat in categories}
+            }
+            db._dirty = True
+        await db.force_save()
+
+        await interaction.response.send_message(
+            f"✅ Cupom `{code}` salvo com {percent:.0f}% de desconto. Agora escolha as categorias onde ele funciona:",
+            view=CouponCategorySelectView(self.bot, code, categories),
+            ephemeral=True
+        )
+
+
+class CouponCategorySelectView(discord.ui.View):
+    def __init__(self, bot, code: str, categories: list):
+        super().__init__(timeout=180)
+        self.bot = bot
+        self.code = normalize_coupon_code(code)
+        self.categories = categories[:25]
+        if self.categories:
+            select = discord.ui.Select(
+                placeholder="Categorias onde o cupom vai funcionar",
+                min_values=0,
+                max_values=len(self.categories),
+                options=[discord.SelectOption(label=c[:100], value=c) for c in self.categories],
+                custom_id=f"coupon_cats_{self.code}"[:100]
+            )
+            select.callback = self.select_callback
+            self.add_item(select)
+
+    async def select_callback(self, interaction: discord.Interaction):
+        selected = set(interaction.data.get("values", []))
+        categories_map = {cat: (cat in selected) for cat in self.categories}
+        async with db._lock:
+            cfg = db._db_cache.setdefault("config", {})
+            coupons = cfg.setdefault("coupons", {})
+            coupon = coupons.setdefault(self.code, {})
+            coupon["categories"] = categories_map
+            db._dirty = True
+        await db.force_save()
+
+        enabled = [cat for cat, ok in categories_map.items() if ok]
+        text = "Todas desativadas" if not enabled else "\n".join(f"✅ {cat}" for cat in enabled)
+        await interaction.response.edit_message(content=f"✅ Categorias atualizadas para `{self.code}`:\n{text}", view=None)
+
+
+class CouponPanelView(discord.ui.View):
+    def __init__(self, bot):
+        super().__init__(timeout=180)
+        self.bot = bot
+
+    @discord.ui.button(label="Criar/editar cupom", style=discord.ButtonStyle.success, emoji="🎟️")
+    async def create_coupon(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if not await check_admin_permission(interaction, self.bot):
+            return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+        await interaction.response.send_modal(CouponCreateEditModal(self.bot))
+
+    @discord.ui.button(label="Listar cupons", style=discord.ButtonStyle.primary, emoji="📋")
+    async def list_coupons(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if not await check_admin_permission(interaction, self.bot):
+            return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+        config = await db.get_config()
+        coupons = config.get("coupons", {})
+        if not coupons:
+            return await interaction.response.send_message("📭 Nenhum cupom criado ainda.", ephemeral=True)
+        lines = []
+        for code, coupon in coupons.items():
+            cats = get_coupon_categories_map(coupon)
+            active_cats = [c for c, ok in cats.items() if ok]
+            status = "✅ Ativo" if coupon.get("active", True) else "❌ Desativado"
+            percent = coupon.get("discount_percent", 0)
+            uses = coupon.get("uses", 0)
+            max_uses = coupon.get("max_uses", 0)
+            uses_text = f"{uses}/{max_uses}" if max_uses else f"{uses}/∞"
+            cats_text = ", ".join(active_cats[:4]) if active_cats else "Todas" if not cats else "Nenhuma"
+            lines.append(f"**{code}** — {percent}% — {status} — usos `{uses_text}`\nCategorias: {cats_text}")
+        embed = discord.Embed(title="🎟️ Cupons", description="\n\n".join(lines)[:4096], color=discord.Color.gold())
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
+    @discord.ui.button(label="Configurar categorias", style=discord.ButtonStyle.secondary, emoji="📂")
+    async def config_categories(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if not await check_admin_permission(interaction, self.bot):
+            return await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+        config = await db.get_config()
+        coupons = config.get("coupons", {})
+        if not coupons:
+            return await interaction.response.send_message("❌ Crie um cupom primeiro.", ephemeral=True)
+        options = [discord.SelectOption(label=code, value=code) for code in list(coupons.keys())[:25]]
+        view = CouponChooseForCategoryView(self.bot, options)
+        await interaction.response.send_message("Escolha o cupom que deseja configurar:", view=view, ephemeral=True)
+
+
+class CouponChooseForCategoryView(discord.ui.View):
+    def __init__(self, bot, options):
+        super().__init__(timeout=120)
+        self.bot = bot
+        select = discord.ui.Select(placeholder="Escolha o cupom", min_values=1, max_values=1, options=options)
+        select.callback = self.select_callback
+        self.add_item(select)
+
+    async def select_callback(self, interaction: discord.Interaction):
+        code = normalize_coupon_code(interaction.data["values"][0])
+        products = await db.get_products(exclude_status=[StockStatus.ARCHIVED.value])
+        categories = sorted(set(str(p.get("categoria", "Geral")) for p in products))[:25]
+        await interaction.response.edit_message(
+            content=f"Agora escolha as categorias onde `{code}` vai funcionar:",
+            view=CouponCategorySelectView(self.bot, code, categories)
+        )
+
+
 class ProductVariationView(discord.ui.View):
     def __init__(self, bot, product_data):
         super().__init__(timeout=120)
@@ -1572,7 +1886,14 @@ class ProductVariationView(discord.ui.View):
             extra += f"\n**Detalhes:** {variation_desc}"
         product_copy["descricao"] = f"{base_desc}\n\n{extra}" if base_desc else extra
 
-        await handle_purchase(interaction, product_copy, self.bot)
+        if await product_allows_quantity(product_copy):
+            await interaction.response.edit_message(
+                content="🛒 Agora escolha a quantidade desejada:",
+                embed=None,
+                view=QuantitySelectView(self.bot, product_copy)
+            )
+        else:
+            await handle_purchase(interaction, product_copy, self.bot)
 
 
 class ConfirmQuantityView(discord.ui.View):
@@ -1944,6 +2265,12 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
         if not interaction.response.is_done(): await interaction.response.send_message(embed=embed, view=GoToThreadView(thread_url), ephemeral=True)
         else: await interaction.followup.send(embed=embed, view=GoToThreadView(thread_url), ephemeral=True)
         return
+
+    # Etapa obrigatória antes de abrir o tópico: cupom ou continuar sem cupom.
+    if not product.get("_coupon_checked") and not product.get("robux_custom_pending_validation"):
+        await send_coupon_checkout_prompt(interaction, product, bot)
+        return
+
     if not interaction.response.is_done():
         await interaction.response.defer(ephemeral=True, thinking=True)
 
@@ -2008,6 +2335,10 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
             "user_name": interaction.user.name,
             "user_id": interaction.user.id,
             "valor": product['valor'],
+            "coupon_code": product.get("coupon_code"),
+            "coupon_original_value": product.get("coupon_original_value"),
+            "coupon_discount_percent": product.get("coupon_discount_percent"),
+            "coupon_discount_value": product.get("coupon_discount_value"),
             "status": OrderStatus.PENDING.value,
             "entregavel": reserved_item,
             "multiplicador": mult,
@@ -2019,6 +2350,8 @@ async def handle_purchase(interaction: discord.Interaction, product: dict, bot):
             "gamepass_validated_price": product.get("gamepass_validated_price")
         }
         new_order = await db.add_order(order_data)
+        if product.get("coupon_code"):
+            await register_coupon_use(product.get("coupon_code"), interaction.user.id)
 
         # Criação do carrinho/ticket com fallback:
         # 1) tenta thread privada
@@ -2327,6 +2660,21 @@ if __name__ == "__main__":
                 await interaction.followup.send(view=view, ephemeral=True)
             else: await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
         
+        @bot.tree.command(name="cupom", description="Cria e configura cupons por categoria.")
+        async def cupom(interaction: discord.Interaction):
+            if await check_admin_permission(interaction, bot):
+                embed = discord.Embed(
+                    title="🎟️ Painel de Cupons",
+                    description=(
+                        "Crie cupons com desconto em porcentagem e escolha, categoria por categoria, "
+                        "onde cada cupom funciona. O cliente aplica o cupom antes do tópico ser criado."
+                    ),
+                    color=discord.Color.gold()
+                )
+                await interaction.response.send_message(embed=embed, view=CouponPanelView(bot), ephemeral=True)
+            else:
+                await interaction.response.send_message(view=NoPermissionView(), ephemeral=True)
+
         @bot.tree.command(name="dashboard", description="Vendas e faturamento detalhados.")
         async def dashboard(interaction: discord.Interaction):
             if await check_admin_permission(interaction, bot):
